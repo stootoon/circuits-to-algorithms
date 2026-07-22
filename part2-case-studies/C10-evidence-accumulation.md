@@ -130,20 +130,20 @@ def ddm(A, sigma, z, dt=2e-4, n=20000, tmax=8.0):
     return ch, t
 
 A, sigma, z = 0.6, 1.0, 0.8
-ch, t = ddm(A, sigma, z); k = 2*A*z/sigma**2
-print("Pc   sim %.3f  theory %.3f" % ((ch > 0).mean(), 1/(1+np.exp(-k))))
+ch, t = ddm(A, sigma, z); k = A*z/sigma**2          # note: kappa = A z / sigma^2
+print("Pc   sim %.3f  theory %.3f" % ((ch > 0).mean(), 1/(1+np.exp(-2*k))))
 print("E[T] sim %.3f  theory %.3f" % (t.mean(), (z/A)*np.tanh(k)))
 print("RT(correct) %.3f  RT(error) %.3f" % (t[ch > 0].mean(), t[ch < 0].mean()))
 
 T0, Dp = 0.3, 1.0                              # non-decision time, error penalty
-zs = np.linspace(0.05, 3.0, 200); kk = 2*A*zs/sigma**2
-Pc = 1/(1+np.exp(-kk)); ET = (zs/A)*np.tanh(kk)
+zs = np.linspace(0.05, 4.0, 400); kk = A*zs/sigma**2
+Pc = 1/(1+np.exp(-2*kk)); ET = (zs/A)*np.tanh(kk)
 RR = Pc/(ET + T0 + (1-Pc)*Dp)
 print("reward-rate-optimal z = %.3f, accuracy there = %.3f"
       % (zs[np.argmax(RR)], Pc[np.argmax(RR)]))
 ```
 
-**What to look for.** Simulated $P_c$ and $\bar T$ match the closed forms to within Monte-Carlo error (they should — this is a check on your integrator, not on the theory). Correct and error RTs are equal: this is the *failure* of the pure DDM, and seeing it makes clear why across-trial drift variability is not optional. Finally, note that $\mathrm{RR}$ is remarkably flat near its maximum — accuracy can vary by several percent at near-optimal reward rate, which is a warning about how much power "subjects are optimal" tests actually have.
+**What to look for.** Simulated $P_c$ and $\bar T$ match the closed forms to within Monte-Carlo error (they should — this is a check on your integrator, not on the theory). Correct and error RTs are equal: this is the *failure* of the pure DDM, and seeing it makes clear why across-trial drift variability is not optional. Finally, note how flat $\mathrm{RR}$ is near its maximum: every bound in $z\in[0.26,0.44]$ — accuracies from 57.7% to 62.9% — sits within 1% of the optimal reward rate. That is a standing warning about how little power "subjects behave optimally" tests actually have, and it is why the *shape* of the optimal performance curve (Exercise 5) is a better test than the location of any one point on it.
 
 **(b) The Wong–Wang two-variable network.**
 
@@ -245,7 +245,7 @@ Write $\kappa = Az/\sigma^2$, $P_c = \sigma(2\kappa)$ (logistic), $\bar T=(z/A)\
 
 $$P_c'\,Q = P_c\,Q' \quad\Longleftrightarrow\quad \frac{P_c'}{P_c} = \frac{\bar T' - P_c' D_p}{\bar T+T_0+(1-P_c)D_p},$$
 
-with $P_c' = \frac{2A}{\sigma^2}P_c(1-P_c)$ and $\bar T' = \frac{1}{A}\tanh\kappa + \frac{z}{\sigma^2}\operatorname{sech}^2\kappa$. This is transcendental; solve it numerically (the scan in §3 does exactly that). With $A=0.6,\sigma=1,T_0=0.3,D_p=1$ you should find $z^*\approx0.7$–$0.9$ and an optimal accuracy in the low 80s of percent — notably *not* near-perfect accuracy, which is the qualitative content: optimal agents make errors on purpose.
+with $P_c' = \frac{2A}{\sigma^2}P_c(1-P_c)$ and $\bar T' = \frac{1}{A}\tanh\kappa + \frac{z}{\sigma^2}\operatorname{sech}^2\kappa$. This is transcendental; solve it numerically (the scan in §3 does exactly that). With $A=0.6,\sigma=1,T_0=0.3,D_p=1$ the scan returns $z^*\approx0.35$, optimal accuracy $\approx0.60$, and $\bar T\approx0.12$ s; raising the error penalty to $D_p=2$ moves it to $z^*\approx0.57$, accuracy $\approx0.66$. Notice how far these are from near-perfect accuracy: with weak evidence and a modest error cost, the reward-rate-optimal agent is right only three times in five. **Optimal agents make errors on purpose**, and any claim that an animal is "suboptimally impulsive" has to be checked against this computation before it means anything.
 
 The optimal performance curve: eliminating $z$ between $P_c(z^*)$ and $\bar T(z^*)$ leaves a relation between normalised decision time $\bar T/(T_0+D_p)$ and error rate that contains **no free parameters at all** once you know $T_0$ and $D_p$, which are set by the experimenter. Subjects either sit on that curve or they do not. Compare this with "the DDM fits my RT distributions": the DDM has enough parameters to fit almost any unimodal, right-skewed RT distribution, so fit quality is weak evidence. A parameter-free curve that the data can miss is strong evidence. This distinction — fitting versus predicting with parameters spent elsewhere — is the subject of `../part3-synthesis/S2-degeneracy-and-limits.md`.
 </details>

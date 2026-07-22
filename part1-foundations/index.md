@@ -35,7 +35,9 @@ when a case study calls for them.
 
 These are the longest units in the course, by design: they carry the derivations that the case
 studies then use without re-deriving. Each ends with a **Mathematical structure spotlight**
-pointing into the [structures thread](../structures/README.md), an **Exercises** section of nine
-to ten problems tagged ★/★★/★★★, and a **Solutions** section below it with every problem worked
-in full. The exercises are deliberately not interleaved with their solutions here — work a set
-before you check it.
+pointing into the [structures thread](../structures/README.md), followed by nine or ten
+exercises tagged ★/★★/★★★, every one with a full worked solution in a collapsible block.
+Fifty-eight problems across the six units.
+
+Companion code for the models in these units and in the case studies is in
+[`notebooks/`](../notebooks/).

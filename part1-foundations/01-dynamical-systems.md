@@ -442,30 +442,9 @@ Concretely, the conversions this unit unlocks:
 ---
 
 ## Exercises
-
 **1. (★★) The tuning bill.** For $\tau\dot x = -x + Wx + Bu$ with $W$'s leading eigenvalue $\lambda_1$ perturbed by $W\to W+\varepsilon\Delta$: (a) derive $\delta\lambda_1$ from scratch; (b) suppose $\Delta_{ij}$ are i.i.d. with mean zero and variance $1/N$, and $m_1,n_1$ are unit-norm with $n_1^\top m_1 = c$. Give the distribution of $\delta\lambda_1$ and hence of the memory time constant. (c) How large must $N$ be for a network with per-synapse relative noise $\varepsilon = 0.05$ and $c = 1$ to hold a memory for 20 s with $\tau = 20$ ms in 68% of realizations? (d) Redo (c) for $c = 0.05$ (strongly non-normal) and comment.
 
-**2. (★) Mutual inhibition becomes a categorizer.** Consider $\tau\dot x_i = -x_i + \phi(I - w x_j)$, $\phi = \tanh$, $(i,j) \in \{(1,2),(2,1)\}$, $w>0$, $I$ fixed. Find the symmetric fixed point condition, linearize, identify the symmetric and antisymmetric eigenmodes and their eigenvalues, and locate the pitchfork. Show that the bifurcation is supercritical for $\phi=\tanh$ and $I=0$.
-
-**3. (★★) Fixed-point finding on a chaotic RNN.** Implement the Sussillo–Barak procedure in numpy/scipy for $\tau\dot x = -x + W\phi(x)$, $\phi=\tanh$, $W_{ij}\sim\mathcal{N}(0,g^2/N)$, $N=200$. For $g = 0.8$ and $g=1.8$: sample initial conditions from a long simulation, minimize $q$, deduplicate, and histogram $\log_{10} q$ and the number of unstable eigenvalues per recovered point. Predict the qualitative difference *before* you run it, then check.
-
-**4. (★★) The ghost as a timer.** For $\dot s = \mu + s^2$ with $\mu>0$, derive the passage time $T(\mu)$ exactly. Then for the SNIC normal form $\dot\theta = \mu - \cos\theta$ with $\mu\gtrsim 1$, compute the period exactly and verify the $(\mu-1)^{-1/2}$ scaling at onset. What experimental signature distinguishes a SNIC-based timer from a slow-manifold-based timer?
-
-**5. (★★) Saddle values and the shape of a channel.** (a) For a planar saddle $\dot u = \lambda_u u$, $\dot z = -\lambda_s z$, show that a trajectory entering at $(u_0, z_0) = (\epsilon, z_0)$ and exiting at $u = U$ exits at $z_{\text{out}} = z_0 (\epsilon/U)^{\nu}$ with $\nu = \lambda_s/\lambda_u$, and derive the transit time. (b) Use this to derive May–Leonard's stability condition $\alpha+\beta>2$. (c) Simulate the May–Leonard system with additive noise $\eta$ and verify $T_{\text{dwell}} \propto \ln(1/\eta)$ across three decades of $\eta$.
-
-**6. (★★) Building an olfactory channel.** Construct a 9-group winnerless-competition network $\tau\dot a_i = a_i(\sigma_i(S) - \sum_j\rho_{ij}a_j)$ with $\rho$ asymmetric and stimulus-dependent $\sigma$. Arrange two different odors to enter two different channels through the same 9 states. Then build a "Kenyon cell" layer: $K$ units each reading a random set of 6 groups with a high threshold, and quantify odor discriminability from the KC layer as a function of time since onset. Reproduce the qualitative Mazor–Laurent result: discriminability peaks during the transient.
-
-**7. (★★★, research taste) Falsifying winnerless competition.** You have a locust preparation with simultaneous recordings from ~100 PNs, optogenetic control over a subset of LNs, and the ability to deliver precisely timed odor pulses. Design a set of experiments that would distinguish the heteroclinic-channel account of AL dynamics from each of: (a) a stimulus-driven feedforward chain with no recurrent competition; (b) a noise-perturbed stable limit cycle; (c) a non-normal linear transient (a "hidden feedforward" network in Goldman's sense) with adaptation. For each alternative, state the prediction that differs and the statistic you would compute.
-
-**8. (★★) Integration without an eigenvalue.** Let $W$ be strictly lower-triangular with $W_{i+1,i} = w$ and all other entries zero, and consider $\tau\dot x = -x + Wx + Be_1 u(t)$. (a) Compute the spectrum of $W$ and of $-I+W$. (b) Compute $e^{(-I+W)t/\tau}$ in closed form. (c) For a brief input pulse at $t=0$ into unit 1, find $x_N(t)$ and show the network holds a signature of the pulse for a time $\sim N\tau$ despite having no eigenvalue near the critical line. (d) What is the price paid, relative to a true line attractor?
-
-**9. (★) Where linearization dies.** Explain precisely why Hartman–Grobman fails to classify a point on a line attractor, and state what replaces it. Then exhibit two systems in $\mathbb{R}^2$ with the *same* Jacobian at the origin ($\lambda = \{0, -1\}$) but non-conjugate local phase portraits.
-
----
-
-## Solutions
-
-### 1. The tuning bill
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** Let $Wm = \lambda m$, $n^\top W = \lambda n^\top$, $n^\top m = c \ne 0$. Posit $(W+\varepsilon\Delta)(m+\varepsilon m^{(1)}+\cdots) = (\lambda+\varepsilon\lambda^{(1)}+\cdots)(m+\varepsilon m^{(1)}+\cdots)$. Order $\varepsilon^0$ is the unperturbed problem. Order $\varepsilon^1$:
 $$W m^{(1)} + \Delta m = \lambda m^{(1)} + \lambda^{(1)} m \;\Longrightarrow\; (W-\lambda I)m^{(1)} = \lambda^{(1)}m - \Delta m.$$
@@ -480,7 +459,11 @@ $\tau^{\text{eff}}$ is (minus) the reciprocal of a Gaussian — heavy-tailed, an
 
 **(d)** With $c = 0.05$: $\sqrt N \ge 10^{-3\,-1}\cdot\varepsilon/c$… explicitly, $\sqrt{N} \ge \varepsilon/(c\cdot 10^{-3}) = 0.05/(0.05\times10^{-3}) = 1000$, so $N \ge 10^6$. Non-normality costs you a factor $c^{-2}$ in the required network size. The moral: the *condition number* of the memory eigenvalue, not the network size, is the right robustness statistic. A large network built from a strongly non-normal $W$ is not automatically robust, and $c = n^\top m$ is directly computable from any model you are handed. Always compute it.
 
-### 2. Mutual inhibition becomes a categorizer
+</details>
+
+**2. (★) Mutual inhibition becomes a categorizer.** Consider $\tau\dot x_i = -x_i + \phi(I - w x_j)$, $\phi = \tanh$, $(i,j) \in \{(1,2),(2,1)\}$, $w>0$, $I$ fixed. Find the symmetric fixed point condition, linearize, identify the symmetric and antisymmetric eigenmodes and their eigenvalues, and locate the pitchfork. Show that the bifurcation is supercritical for $\phi=\tanh$ and $I=0$.
+
+<details markdown="1"><summary>Solution</summary>
 
 Fixed points satisfy $x_1 = \phi(I - wx_2)$, $x_2 = \phi(I - wx_1)$. The symmetric solution $x_1=x_2=x^*$ solves $x^* = \phi(I - wx^*)$, which for monotone bounded $\phi$ has a unique root. Jacobian:
 $$J = \frac{1}{\tau}\begin{pmatrix}-1 & -w\phi' \\ -w\phi' & -1\end{pmatrix}, \qquad \phi' = \phi'(I - wx^*).$$
@@ -494,7 +477,11 @@ Criticality: put $s = (x_1-x_2)/2$, $\sigma = (x_1+x_2)/2$. On the center manifo
 $$\tau\dot s = (w-1)s - \frac{w^3}{3}s^3 + O(s^5).$$
 The cubic coefficient is negative, so the pitchfork is **supercritical**: for $w$ just above 1 two stable states appear at $s^* = \pm\sqrt{3(w-1)}/w^{3/2}$, separated by $\propto\sqrt{w-w_c}$. The circuit continuously transitions from "reports the average" to "reports a category," and the transition point is set by the product of inhibition strength and single-neuron gain — meaning a neuromodulator that changes gain alone can flip the algorithm.
 
-### 3. Fixed-point finding on a chaotic RNN
+</details>
+
+**3. (★★) Fixed-point finding on a chaotic RNN.** Implement the Sussillo–Barak procedure in numpy/scipy for $\tau\dot x = -x + W\phi(x)$, $\phi=\tanh$, $W_{ij}\sim\mathcal{N}(0,g^2/N)$, $N=200$. For $g = 0.8$ and $g=1.8$: sample initial conditions from a long simulation, minimize $q$, deduplicate, and histogram $\log_{10} q$ and the number of unstable eigenvalues per recovered point. Predict the qualitative difference *before* you run it, then check.
+
+<details markdown="1"><summary>Solution</summary>
 
 ```python
 import numpy as np
@@ -555,7 +542,11 @@ for g in (0.8, 1.8):
 
 A worthwhile add-on: repeat with a network trained on a task and observe that the recovered points collapse onto a small, structured, low-dimensional set. That contrast — unstructured skeleton vs. structured skeleton — is the fingerprint of computation.
 
-### 4. The ghost as a timer
+</details>
+
+**4. (★★) The ghost as a timer.** For $\dot s = \mu + s^2$ with $\mu>0$, derive the passage time $T(\mu)$ exactly. Then for the SNIC normal form $\dot\theta = \mu - \cos\theta$ with $\mu\gtrsim 1$, compute the period exactly and verify the $(\mu-1)^{-1/2}$ scaling at onset. What experimental signature distinguishes a SNIC-based timer from a slow-manifold-based timer?
+
+<details markdown="1"><summary>Solution</summary>
 
 **Saddle-node ghost.** $\dot s = \mu + s^2$. Separate: $dt = ds/(\mu+s^2)$, so
 $$T = \int_{-\infty}^{\infty}\frac{ds}{\mu+s^2} = \frac{1}{\sqrt\mu}\Big[\arctan\frac{s}{\sqrt\mu}\Big]_{-\infty}^{\infty} = \frac{\pi}{\sqrt\mu}.$$
@@ -569,7 +560,11 @@ Arbitrarily long periods, arbitrarily low firing rates — type-I excitability.
 
 **Distinguishing signature.** A SNIC timer's interval scales as $(\mu-\mu_c)^{-1/2}$ in the control parameter and, critically, its *variance* is dominated by the bottleneck: with noise $D$, the passage time distribution acquires a width $\sim D/\mu^{3/2}$ and the CV *increases* sharply as $\mu\to\mu_c$. A slow-manifold timer has $T \propto 1/\epsilon$ (linear, not square-root, in the inverse of the control parameter) and, being a sum of many small independent steps along the manifold, has CV that *decreases* as $\sqrt{1/T}$. So: measure interval mean and CV as you vary the controlling input, and plot $\log(\text{CV})$ against $\log(\text{mean})$. Slope $+1/2$-ish with divergent CV near onset $\Rightarrow$ bottleneck; slope $-1/2$ $\Rightarrow$ accumulation. This is the same logic that distinguishes diffusion-to-bound from bottleneck models of interval timing.
 
-### 5. Saddle values
+</details>
+
+**5. (★★) Saddle values and the shape of a channel.** (a) For a planar saddle $\dot u = \lambda_u u$, $\dot z = -\lambda_s z$, show that a trajectory entering at $(u_0, z_0) = (\epsilon, z_0)$ and exiting at $u = U$ exits at $z_{\text{out}} = z_0 (\epsilon/U)^{\nu}$ with $\nu = \lambda_s/\lambda_u$, and derive the transit time. (b) Use this to derive May–Leonard's stability condition $\alpha+\beta>2$. (c) Simulate the May–Leonard system with additive noise $\eta$ and verify $T_{\text{dwell}} \propto \ln(1/\eta)$ across three decades of $\eta$.
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** From $\dot u = \lambda_u u$: $u(t) = \epsilon e^{\lambda_u t}$, so the exit time at $u=U$ is $T = \frac{1}{\lambda_u}\ln(U/\epsilon)$. From $\dot z = -\lambda_s z$: $z(T) = z_0 e^{-\lambda_s T} = z_0\exp\!\big[-\tfrac{\lambda_s}{\lambda_u}\ln\tfrac{U}{\epsilon}\big] = z_0\left(\frac{\epsilon}{U}\right)^{\nu}$, $\nu=\lambda_s/\lambda_u$. Since $\epsilon/U<1$, larger $\nu$ means stronger transverse contraction per passage.
 
@@ -601,7 +596,11 @@ Expected: dwell times increase by an approximately constant increment per decade
 
 The physical reading: **noise sets the clock, but only logarithmically**, so the sequence timing is robust across orders of magnitude of noise — exactly the property a stimulus-identity code needs.
 
-### 6. Building an olfactory channel
+</details>
+
+**6. (★★) Building an olfactory channel.** Construct a 9-group winnerless-competition network $\tau\dot a_i = a_i(\sigma_i(S) - \sum_j\rho_{ij}a_j)$ with $\rho$ asymmetric and stimulus-dependent $\sigma$. Arrange two different odors to enter two different channels through the same 9 states. Then build a "Kenyon cell" layer: $K$ units each reading a random set of 6 groups with a high threshold, and quantify odor discriminability from the KC layer as a function of time since onset. Reproduce the qualitative Mazor–Laurent result: discriminability peaks during the transient.
+
+<details markdown="1"><summary>Solution</summary>
 
 ```python
 import numpy as np
@@ -657,7 +656,11 @@ Run `run(R, sigmaA, ...)` and `run(R, sigmaB, ...)` from the same initial condit
 
 The conceptual payoff: the KC layer is not decoding "the odor" from an endpoint; it is *time-slicing* a trajectory. Two things the system gets for free — speed (no need to wait for convergence) and capacity (the number of distinguishable sequences through $M$ states vastly exceeds the number of stable states $M$).
 
-### 7. Falsifying winnerless competition
+</details>
+
+**7. (★★★, research taste) Falsifying winnerless competition.** You have a locust preparation with simultaneous recordings from ~100 PNs, optogenetic control over a subset of LNs, and the ability to deliver precisely timed odor pulses. Design a set of experiments that would distinguish the heteroclinic-channel account of AL dynamics from each of: (a) a stimulus-driven feedforward chain with no recurrent competition; (b) a noise-perturbed stable limit cycle; (c) a non-normal linear transient (a "hidden feedforward" network in Goldman's sense) with adaptation. For each alternative, state the prediction that differs and the statistic you would compute.
+
+<details markdown="1"><summary>Solution</summary>
 
 A good answer identifies, for each alternative, a *qualitative* signature rather than a parameter fit — the whole point of the conjugacy framework is that quantitative fits are underdetermined.
 
@@ -669,7 +672,11 @@ A good answer identifies, for each alternative, a *qualitative* signature rather
 
 A strong answer also notes the failure mode: all of these tests have low power on trial-averaged data, and several are confounded by the 20 Hz oscillation, which imposes its own periodicity on PN activity independent of the slow trajectory. Any analysis must first separate the fast oscillatory component (phase-locked, common across odors) from the slow trajectory (odor-specific) — otherwise the limit-cycle alternative wins trivially and vacuously.
 
-### 8. Integration without an eigenvalue
+</details>
+
+**8. (★★) Integration without an eigenvalue.** Let $W$ be strictly lower-triangular with $W_{i+1,i} = w$ and all other entries zero, and consider $\tau\dot x = -x + Wx + Be_1 u(t)$. (a) Compute the spectrum of $W$ and of $-I+W$. (b) Compute $e^{(-I+W)t/\tau}$ in closed form. (c) For a brief input pulse at $t=0$ into unit 1, find $x_N(t)$ and show the network holds a signature of the pulse for a time $\sim N\tau$ despite having no eigenvalue near the critical line. (d) What is the price paid, relative to a true line attractor?
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** $W$ is nilpotent: $W^N = 0$, and its characteristic polynomial is $\lambda^N$, so $\mathrm{spec}(W)=\{0\}$ with algebraic multiplicity $N$ and geometric multiplicity 1 (a single Jordan block). Hence $\mathrm{spec}(-I+W) = \{-1\}$, $N$-fold. Every mode is maximally leaky by the eigenvalue criterion.
 
@@ -688,7 +695,11 @@ Note also the amplitude: $\max_t x_N = e^{-(N-1)}\frac{(w(N-1))^{N-1}}{(N-1)!}\a
 
 The payoff, though, is enormous: **no tuning at all.** Any $w$ works; changing $w$ changes the amplitude and mildly the shape, not the qualitative behaviour. Compare to §4: robustness has been bought by giving up neutrality. Goldman's point is that a large fraction of what we call "persistent activity" could be this, and the two hypotheses are distinguished by whether the *identity* of the active population changes over the delay — which is directly measurable and, in several systems, is observed.
 
-### 9. Where linearization dies
+</details>
+
+**9. (★) Where linearization dies.** Explain precisely why Hartman–Grobman fails to classify a point on a line attractor, and state what replaces it. Then exhibit two systems in $\mathbb{R}^2$ with the *same* Jacobian at the origin ($\lambda = \{0, -1\}$) but non-conjugate local phase portraits.
+
+<details markdown="1"><summary>Solution</summary>
 
 Hartman–Grobman requires hyperbolicity: no eigenvalue with zero real part. A point on a line attractor has $\lambda=0$ with eigenvector tangent to the attractor, so the hypothesis fails. Substantively, not just technically: the zero eigenvalue means the linearized flow is *neutral* along that direction, and the true nonlinear behaviour along it is determined entirely by the higher-order terms that linearization discards. Two systems can share a linearization and behave completely differently.
 
@@ -699,3 +710,5 @@ $$\text{(A)}\quad \dot u = 0,\ \ \dot z = -z \qquad\text{vs.}\qquad \text{(B)}\q
 Both have $J(0) = \mathrm{diag}(0,-1)$. In (A) the entire $u$-axis is a line of fixed points; in (B) the origin is the *unique* fixed point in a neighborhood and it is asymptotically stable (nonlinearly). Any conjugacy would have to map a set of fixed points onto a set of fixed points and hence a one-dimensional continuum onto a single point — impossible for a homeomorphism. A third: $\dot u = +u^3$ gives a unique unstable-along-$u$ origin, again non-conjugate to both.
 
 This is not a pathological corner. It is the entire content of the claim that line attractors are fragile: (A) is the ideal integrator, (B) is what you generically get after perturbation, and they are not the same algorithm — one holds a value forever, one relaxes to a default. Linearization cannot tell them apart, so any inference from measured eigenvalues alone to "this is an integrator" is unsound. You need the nonlinear flow, which is exactly why you run a fixed-point finder over the whole visited region rather than linearizing at one point.
+
+</details>

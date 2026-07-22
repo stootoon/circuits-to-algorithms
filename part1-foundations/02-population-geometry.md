@@ -387,30 +387,9 @@ Concrete questions this framing makes askable, none of which I think are settled
 ---
 
 ## Exercises
-
 **1. (★) Participation ratio of a power law.** For $\lambda_i = i^{-\alpha}$, $i=1..N$: (a) derive $\mathrm{PR}_\infty = \zeta(\alpha)^2/\zeta(2\alpha)$ for $\alpha>1$ and give its behaviour as $\alpha\to1^+$ and $\alpha\to\infty$; (b) find the $N$-scaling for $\alpha=1$, $1/2<\alpha<1$, and $\alpha<1/2$; (c) verify numerically and plot $\mathrm{PR}$ against $\alpha$ for $N=10^4$.
 
-**2. (★★) The isotropic-noise bias.** Let $C = S + \sigma^2 I$ where $S$ is the "signal" covariance with eigenvalues $s_i$, $i \le N$. (a) Derive $\mathrm{PR}(C)$ in terms of $\mathrm{tr}\,S$, $\mathrm{tr}\,S^2$, $N$, $\sigma^2$. (b) For $S$ of rank $r$ with equal eigenvalues, express $\mathrm{PR}$ in terms of $r$, $N$, and the signal fraction $f = \mathrm{tr}\,S/(\mathrm{tr}\,S + N\sigma^2)$, and sketch it. (c) You measure $\mathrm{PR}=12$ from 200 neurons with an estimated per-neuron SNR of 1. What is your best guess for the signal PR, and how confident should you be?
-
-**3. (★★) TDR, and why orthogonalization matters.** Simulate $N=300$ neurons whose responses are $r_i = a_i\,s_1 + b_i\,s_2 + \eta_i$ with $(a_i,b_i)$ correlated across neurons ($\rho=0.7$). (a) Recover $\beta_1,\beta_2$ by regression; measure the angle between them. (b) Project the data onto raw versus QR-orthogonalized axes and compare the apparent dependence of the "$s_1$ axis" projection on $s_2$. (c) Show that the ordering in the QR changes the answer, and propose a defensible convention.
-
-**4. (★★★) The rank-one self-consistency, end to end.** For $\phi=\tanh$, $J = g\chi + mn^\top/N$ with $(m,n)$ zero-mean joint Gaussian, $\sigma_m=\sigma_n=1$, correlation $\sigma_{mn}$, no input: (a) write $\langle\phi'\rangle_\Delta$ as a one-dimensional Gaussian integral and evaluate it numerically; (b) solve the self-consistency for $\kappa$ as a function of $\sigma_{mn}$ at $g=0.5$ and $g=1.2$, and locate the pitchfork; (c) simulate $N=3000$ and compare the measured $\kappa=\langle n\phi(x)\rangle$ to theory; (d) explain the direction in which increasing $g$ moves the bifurcation, and why.
-
-**5. (★★) Rank two makes a ring.** With $J=\frac1N(m_1n_1^\top+m_2n_2^\top)$ and $\sigma_{n_am_b}=s\,\delta_{ab}$, $\sigma_{m_1m_2}=0$: (a) derive the reduced self-consistency for $(\kappa_1,\kappa_2)$ and show the solution set is a circle; (b) identify the symmetry responsible and connect it to Unit 01's spotlight; (c) what perturbation of the connectivity statistics breaks the ring into isolated fixed points, and how many do you get?
-
-**6. (★★) Cover's theorem.** (a) Prove the recursion $C(P+1,N)=C(P,N)+C(P,N-1)$ and solve it to get $C(P,N)=2\sum_{k=0}^{N-1}\binom{P-1}{k}$. (b) Show the fraction separable is exactly $1/2$ at $P=2N$. (c) For $K=8$ conditions and $N$ neurons with i.i.d. Gaussian responses, at what $N$ does the expected shattering dimensionality first exceed 0.95? Check numerically with a linear SVM.
-
-**7. (★★) Building the tradeoff by hand.** Generate three binary latent variables giving $K=8$ conditions. Construct (a) a purely factorized code $\mu_c = \sum_v x_v(c)\,u_v$ with orthonormal $u_v$; (b) a purely random code $\mu_c = $ i.i.d. Gaussian in $\mathbb{R}^N$; (c) a mixture $\mu_c = \sum_v x_v(c)u_v + \epsilon\,g_c$ with $g_c$ random and orthogonal to $\mathrm{span}(u_v)$. Compute SD, CCGP, and PS for all three as a function of $\epsilon$, with added trial noise. Reproduce the tradeoff curve, and find the $\epsilon$ that maximizes $\min(\mathrm{SD},\mathrm{CCGP})$.
-
-**8. (★★) Recovering a ring without labels.** Generate $N=150$ neurons with von Mises tuning to a latent angle $\theta$, sample a trajectory of $\theta$ that is a random walk, add Poisson noise. Without using $\theta$: recover a circular coordinate (e.g. from the top two nontrivial eigenvectors of a graph Laplacian on the point cloud, or Isomap plus `arctan2`), and compare to the true $\theta$ up to rotation and reflection. Then break the ring — make tuning depend on a second variable — and show how the recovery degrades. What did Chaudhuri et al. have to do that this exercise does not?
-
-**9. (★★★, research taste) Abstraction geometry for a dynamic code.** CCGP and parallelism score are defined for static condition means. The locust AL's code is a trajectory. Propose a definition of "abstract format" for trajectory codes — one that would let you say "odor identity is represented abstractly with respect to concentration" — and specify the analysis you would run on simultaneous PN recordings across an odor $\times$ concentration $\times$ mixture panel. What are the failure modes of your definition, and what would a negative result mean?
-
----
-
-## Solutions
-
-### 1. Participation ratio of a power law
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** $\sum_{i=1}^\infty i^{-\alpha} = \zeta(\alpha)$ and $\sum i^{-2\alpha} = \zeta(2\alpha)$, both convergent for $\alpha>1$ (the second needs only $\alpha>1/2$). Hence $\mathrm{PR}_\infty = \zeta(\alpha)^2/\zeta(2\alpha)$.
 
@@ -434,7 +413,11 @@ Expected output (exact, at $N=10^4$): $\alpha=0.3\to8310$, $0.5\to4028$, $0.8\to
 
 The practical lesson: **for $\alpha$ near 1, PR estimates depend strongly on how many neurons you recorded**, and comparing PR across datasets with different $N$ is meaningless unless you also report $\alpha$. Since $\alpha$ near 1 is precisely the regime Stringer et al. found in cortex, this is not a corner case — it is the normal case, and much of the literature's cross-study PR comparison is therefore uninterpretable.
 
-### 2. The isotropic-noise bias
+</details>
+
+**2. (★★) The isotropic-noise bias.** Let $C = S + \sigma^2 I$ where $S$ is the "signal" covariance with eigenvalues $s_i$, $i \le N$. (a) Derive $\mathrm{PR}(C)$ in terms of $\mathrm{tr}\,S$, $\mathrm{tr}\,S^2$, $N$, $\sigma^2$. (b) For $S$ of rank $r$ with equal eigenvalues, express $\mathrm{PR}$ in terms of $r$, $N$, and the signal fraction $f = \mathrm{tr}\,S/(\mathrm{tr}\,S + N\sigma^2)$, and sketch it. (c) You measure $\mathrm{PR}=12$ from 200 neurons with an estimated per-neuron SNR of 1. What is your best guess for the signal PR, and how confident should you be?
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** $\mathrm{tr}\,C = \mathrm{tr}\,S + N\sigma^2$; $\mathrm{tr}\,C^2 = \sum(s_i+\sigma^2)^2 = \mathrm{tr}\,S^2 + 2\sigma^2\mathrm{tr}\,S + N\sigma^4$. Hence
 $$\mathrm{PR}(C) = \frac{(\mathrm{tr}\,S + N\sigma^2)^2}{\mathrm{tr}\,S^2 + 2\sigma^2\,\mathrm{tr}\,S + N\sigma^4}.$$
@@ -446,7 +429,11 @@ Read the three terms: signal-only ($f^2/r$), cross ($2f(1-f)/N$), noise-only ($(
 
 **(c)** Per-neuron SNR of 1 means $f\approx0.5$. Solve $12 = 1/(0.25/r + 0.00375)$ for $r$: $1/12 = 0.0833 = 0.25/r + 0.00375 \Rightarrow 0.25/r = 0.0796 \Rightarrow r \approx 3.1$. So the signal PR is around 3, not 12 — a factor of four. Confidence: **low**, and asymmetrically so. The estimate is highly sensitive to $f$ (which you know poorly), the equal-eigenvalue assumption is wrong (real signal spectra are graded, which raises the inferred $r$), and the noise is not isotropic in real data (shared noise reduces the inflation, and shared noise is ubiquitous). The correct practice is not to invert this formula but to estimate PR by **cross-validation across trials** — compute $\mathrm{tr}\,C$ and $\mathrm{tr}\,C^2$ from independent trial splits so that the isotropic noise contributes zero in expectation to the cross-covariance. Report both the raw and cross-validated PR; the gap is itself informative.
 
-### 3. TDR, and why orthogonalization matters
+</details>
+
+**3. (★★) TDR, and why orthogonalization matters.** Simulate $N=300$ neurons whose responses are $r_i = a_i\,s_1 + b_i\,s_2 + \eta_i$ with $(a_i,b_i)$ correlated across neurons ($\rho=0.7$). (a) Recover $\beta_1,\beta_2$ by regression; measure the angle between them. (b) Project the data onto raw versus QR-orthogonalized axes and compare the apparent dependence of the "$s_1$ axis" projection on $s_2$. (c) Show that the ordering in the QR changes the answer, and propose a defensible convention.
+
+<details markdown="1"><summary>Solution</summary>
 
 ```python
 import numpy as np
@@ -477,7 +464,11 @@ for name, p in [("raw", p_raw), ("orth", p_orth)]:
 
 **(c)** Reordering changes which axis is privileged, and hence changes both projections. Defensible conventions, in rough order of preference: (i) order by *a priori* causal/temporal precedence — put the variable that is presented first, or that is causally upstream, first, since its axis is the one you least want contaminated; (ii) report all orderings and show the conclusion is invariant; (iii) abandon orthogonalization and instead use a joint decoder that estimates all variables simultaneously (e.g. multivariate linear decoding with the full inverse covariance), which handles the correlation properly without an arbitrary ordering; (iv) report the principal angles between the raw regression subspaces, which is ordering-free. The deepest fix is (iii): the reason to orthogonalize at all is that we insist on reading off scalar projections one at a time, and that insistence is the actual problem.
 
-### 4. The rank-one self-consistency, end to end
+</details>
+
+**4. (★★★) The rank-one self-consistency, end to end.** For $\phi=\tanh$, $J = g\chi + mn^\top/N$ with $(m,n)$ zero-mean joint Gaussian, $\sigma_m=\sigma_n=1$, correlation $\sigma_{mn}$, no input: (a) write $\langle\phi'\rangle_\Delta$ as a one-dimensional Gaussian integral and evaluate it numerically; (b) solve the self-consistency for $\kappa$ as a function of $\sigma_{mn}$ at $g=0.5$ and $g=1.2$, and locate the pitchfork; (c) simulate $N=3000$ and compare the measured $\kappa=\langle n\phi(x)\rangle$ to theory; (d) explain the direction in which increasing $g$ moves the bifurcation, and why.
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** For $\phi=\tanh$, $\phi'(z)=1-\tanh^2 z$, so
 $$\langle\phi'\rangle_\Delta = \int \frac{dz}{\sqrt{2\pi\Delta}}e^{-z^2/2\Delta}\big(1-\tanh^2 z\big) = 1 - \int Dz\,\tanh^2(\sqrt\Delta z),$$
@@ -527,7 +518,11 @@ Expect agreement to $O(1/\sqrt N)$ — a few percent at $N=3000$ — with the la
 
 **(d)** Increasing $g$ pushes the bifurcation to *larger* $\sigma_{mn}$. Mechanism: larger $g$ means larger $\Delta_0$, hence broader distribution of $x$ across the population, hence more units sitting in the saturated part of $\tanh$, hence smaller mean gain $\langle\phi'\rangle$. The structured loop gain is $\sigma_{mn}\langle\phi'\rangle$, so the loop is weakened. **Chaos acts as an automatic gain control on structured computation** — the random and structured parts of the connectivity are not independent contributions but interact multiplicatively through the shared operating point. This is the single most useful qualitative insight from the mean-field treatment, and it makes a prediction: manipulations that increase network-wide variability should raise the threshold for attractor formation, not merely add noise to an existing attractor.
 
-### 5. Rank two makes a ring
+</details>
+
+**5. (★★) Rank two makes a ring.** With $J=\frac1N(m_1n_1^\top+m_2n_2^\top)$ and $\sigma_{n_am_b}=s\,\delta_{ab}$, $\sigma_{m_1m_2}=0$: (a) derive the reduced self-consistency for $(\kappa_1,\kappa_2)$ and show the solution set is a circle; (b) identify the symmetry responsible and connect it to Unit 01's spotlight; (c) what perturbation of the connectivity statistics breaks the ring into isolated fixed points, and how many do you get?
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** With $S_{ab}=s\delta_{ab}$ and no input, the self-consistency is $\kappa_a = s\,\langle\phi'\rangle_\Delta\,\kappa_a$ for $a=1,2$, and (with $\sigma_{m_1}=\sigma_{m_2}=1$, $\sigma_{m_1m_2}=0$) $\Delta = \kappa_1^2+\kappa_2^2+\Delta_0$ depends on $\kappa$ only through $\|\kappa\|^2$. So either $\kappa=0$, or
 $$s\,\langle\phi'\rangle_{\|\kappa\|^2+\Delta_0} = 1,$$
@@ -537,7 +532,11 @@ which fixes $\|\kappa\| = \kappa^*$ but says nothing about the angle. The soluti
 
 **(c)** Any perturbation that breaks the $O(2)$ symmetry of $S$ or of the $m$-covariance. Concretely, take $S=\mathrm{diag}(s_1,s_2)$ with $s_1\ne s_2$: now $\kappa_a(1-s_a\langle\phi'\rangle)=0$ must hold for each $a$ separately, so a nonzero solution requires $\kappa_2=0$ and $s_1\langle\phi'\rangle=1$ (if $s_1>s_2$), giving $\pm\kappa^*$ along the $m_1$ axis: **two** isolated fixed points (plus the origin). The ring collapses to a $\mathbb{Z}_2$ pair aligned with the larger overlap. More generally, adding a small anisotropy $\epsilon$ produces, at leading order, a slow drift $\dot\psi = -\epsilon\, c\sin2\psi$ around the ring with four fixed points (two stable, two unstable) at $\psi=0,\pi/2,\pi,3\pi/2$ — the standard $\mathbb{Z}_2$-symmetric unfolding of a circle of equilibria, and, in the head-direction context, precisely the mechanism by which anisotropic connectivity produces preferred directions and systematic drift toward them.
 
-### 6. Cover's theorem
+</details>
+
+**6. (★★) Cover's theorem.** (a) Prove the recursion $C(P+1,N)=C(P,N)+C(P,N-1)$ and solve it to get $C(P,N)=2\sum_{k=0}^{N-1}\binom{P-1}{k}$. (b) Show the fraction separable is exactly $1/2$ at $P=2N$. (c) For $K=8$ conditions and $N$ neurons with i.i.d. Gaussian responses, at what $N$ does the expected shattering dimensionality first exceed 0.95? Check numerically with a linear SVM.
+
+<details markdown="1"><summary>Solution</summary>
 
 **(a)** Consider $P$ points in general position in $\mathbb{R}^N$, and add a point $x_{P+1}$. Each of the $C(P,N)$ separable dichotomies of the first $P$ points extends to at least one dichotomy of $P+1$ points (assign $x_{P+1}$ to whichever side the existing hyperplane puts it on). It extends to *two* exactly when there is a separating hyperplane passing through $x_{P+1}$ — because then the hyperplane can be tilted infinitesimally either way. Hyperplanes through $x_{P+1}$ that separate the first $P$ points correspond bijectively to separating hyperplanes of the projections of those $P$ points onto the $(N-1)$-dimensional subspace orthogonal-complementary to $x_{P+1}$, of which there are $C(P,N-1)$. Hence
 $$C(P+1,N) = C(P,N) + C(P,N-1).$$
@@ -547,7 +546,11 @@ With $C(1,N)=2$ and $C(P,1)=2$, the solution is $C(P,N)=2\sum_{k=0}^{N-1}\binom{
 
 **(c)** With $K=8$ conditions, $P=8$, the fraction separable is $C(8,N)/2^8$. Compute: $N=4 \Rightarrow C = 2(\binom70+\binom71+\binom72+\binom73) = 2(1+7+21+35)=128$, fraction $0.5$. $N=5 \Rightarrow +2\binom74=70 \Rightarrow C=198$, fraction $0.773$. $N=6 \Rightarrow +2\binom75=42 \Rightarrow 240$, $0.938$. $N=7 \Rightarrow +2\binom76=14\Rightarrow 254$, $0.992$. So $N=7$ is the first to exceed 0.95, and $N=8$ gives 1. Note $C(P,N)=2^P$ for $N\ge P$, as it must. Numerically with an SVM you will find the same crossover for noiseless data, but with trial noise the effective threshold shifts up substantially — which is why measured shattering dimensionality is a statement about the code *and* the noise, and must always be compared against a matched-noise null.
 
-### 7. Building the tradeoff by hand
+</details>
+
+**7. (★★) Building the tradeoff by hand.** Generate three binary latent variables giving $K=8$ conditions. Construct (a) a purely factorized code $\mu_c = \sum_v x_v(c)\,u_v$ with orthonormal $u_v$; (b) a purely random code $\mu_c = $ i.i.d. Gaussian in $\mathbb{R}^N$; (c) a mixture $\mu_c = \sum_v x_v(c)u_v + \epsilon\,g_c$ with $g_c$ random and orthogonal to $\mathrm{span}(u_v)$. Compute SD, CCGP, and PS for all three as a function of $\epsilon$, with added trial noise. Reproduce the tradeoff curve, and find the $\epsilon$ that maximizes $\min(\mathrm{SD},\mathrm{CCGP})$.
+
+<details markdown="1"><summary>Solution</summary>
 
 ```python
 import numpy as np, itertools
@@ -592,7 +595,11 @@ def sd_ccgp(X, y, dich):
 
 The essential structural insight the exercise is designed to deliver: **because the random component is placed in the orthogonal complement of the abstract subspace, the two properties are not in strict competition** — you pay only through the noise budget, not through geometry. The apparent tradeoff becomes severe only when dimensionality is tightly limited (small $N$, or few neurons read out by the downstream target) or when the noise is large. That is exactly the regime the brain is in, and it is why Bernardi et al.'s finding of *both* is interesting rather than trivial. Extend the exercise by capping $N$ at 8 and watching the tradeoff become genuinely hard.
 
-### 8. Recovering a ring without labels
+</details>
+
+**8. (★★) Recovering a ring without labels.** Generate $N=150$ neurons with von Mises tuning to a latent angle $\theta$, sample a trajectory of $\theta$ that is a random walk, add Poisson noise. Without using $\theta$: recover a circular coordinate (e.g. from the top two nontrivial eigenvectors of a graph Laplacian on the point cloud, or Isomap plus `arctan2`), and compare to the true $\theta$ up to rotation and reflection. Then break the ring — make tuning depend on a second variable — and show how the recovery degrades. What did Chaudhuri et al. have to do that this exercise does not?
+
+<details markdown="1"><summary>Solution</summary>
 
 ```python
 import numpy as np
@@ -627,7 +634,11 @@ Breaking the ring: make the tuning amplitude depend on a second latent variable 
 
 **What Chaudhuri et al. had to do that this does not.** (i) Handle real spike counts with heterogeneous rates, missing/unstable units, and non-uniform sampling of the latent — the random walk here samples the ring uniformly, which is the easy case; real head direction is strongly non-uniform and the manifold-learning step must not be fooled into shrinking undersampled regions. (ii) Establish *topology* rather than fitting a ring — you must show a ring is right rather than assuming it, which means comparing against alternative topologies and running null models. (iii) Match the recovered coordinate across brain states (wake vs. REM vs. non-REM) using the same neuron-to-ring-position assignment, so that the sleep result is a statement about the *same* manifold rather than a coincidentally circular structure. (iv) Show that the internal state *moves* along the ring in sleep with a velocity structure resembling waking head turns. Point (iii) is the one that converts a geometry claim into a mechanism claim, and it is the part that is hardest to do and easiest to skip.
 
-### 9. Abstraction geometry for a dynamic code
+</details>
+
+**9. (★★★, research taste) Abstraction geometry for a dynamic code.** CCGP and parallelism score are defined for static condition means. The locust AL's code is a trajectory. Propose a definition of "abstract format" for trajectory codes — one that would let you say "odor identity is represented abstractly with respect to concentration" — and specify the analysis you would run on simultaneous PN recordings across an odor $\times$ concentration $\times$ mixture panel. What are the failure modes of your definition, and what would a negative result mean?
+
+<details markdown="1"><summary>Solution</summary>
 
 A good answer builds the definition in stages and is explicit about what each stage assumes.
 
@@ -642,3 +653,5 @@ A good answer builds the definition in stages and is explicit about what each st
 **Failure modes to state honestly.** The warping step has enormous flexibility and can manufacture parallelism — this must be controlled by restricting the warp family and by null (i). The definition is only as good as the alignment of trial-averaged trajectories, so timing jitter reintroduces §1's problem at the level of the whole analysis; single-trial latent inference is close to mandatory. And "displacement independent of concentration" is a coordinate-dependent statement unless you fix a metric on state space; with heterogeneous firing rates the natural metric is not Euclidean, and the conclusion can flip between raw-rate, z-scored, and variance-stabilized (square-root) coordinates. Report all three.
 
 **What a negative result would mean.** If PN populations show *low* trajectory-CCGP for identity-over-concentration, the interesting inference is not "the AL fails to abstract" but "the abstraction is not implemented at the AL, and must be either downstream (in the KC threshold nonlinearity, which is a plausible normalizer) or absent, with concentration-invariance achieved behaviourally by other means." That is a substantive fork, and the fact that a negative result is informative in that way is the mark of a well-posed analysis — which is the real point of the exercise.
+
+</details>

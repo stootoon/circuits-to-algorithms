@@ -422,32 +422,10 @@ Cross-reference [`../structures/README.md`](../structures/README.md).
 ---
 
 ## Exercises
-
 **E1 (★) — Woodbury, both ways.** Derive the gain form of the Kalman update from the information form, including the identity $P_{t|t}H^{\mathsf T}R^{-1}=K$. Then go the other way: starting from $P_{t|t}=(I-KH)P$, recover $P_{t|t}^{-1}=P^{-1}+H^{\mathsf T}R^{-1}H$. Which form would a circuit prefer, and why does the answer depend on whether $H$ is tall or wide?
 
-**E2 (★★) — Innovations are white.** Show that $\boldsymbol\nu_t = \mathbf z_t - H\hat{\mathbf x}_{t|t-1}$ satisfies $\mathbb E[\boldsymbol\nu_t]=0$, $\operatorname{Cov}(\boldsymbol\nu_t)=HP_{t|t-1}H^{\mathsf T}+R$, and $\mathbb E[\boldsymbol\nu_t\boldsymbol\nu_s^{\mathsf T}]=0$ for $s\ne t$. Then argue that the Kalman filter is the optimal *whitening filter* for the observation sequence, and connect this to the decorrelation objectives of Unit 05. What experimental signature would "the circuit outputs innovations" have that "the circuit outputs observations" would not?
+<details markdown="1"><summary>Solution</summary>
 
-**E3 (★★) — LQR by completing the square.** Carry out the backward induction in full, including the constant term $c_t$, and verify the Riccati recursion. Then show that if $Q\succeq0$ and $(A,B)$ is stabilizable, $S_t$ converges as $N-t\to\infty$ to the stabilizing solution of the algebraic Riccati equation. Finally: state the duality map that turns the control Riccati into the estimation Riccati.
-
-**E4 (★★) — Separation, and its failure.** (a) Prove the separation theorem following §2.2, being explicit about where the orthogonality principle is used. (b) Now let the noise be signal-dependent: $\mathbf w_t = \sum_k \epsilon_{t,k}C_k\mathbf u_t$ with $\epsilon\sim\mathcal N(0,1)$ i.i.d. Show that Step 1 fails — that $\mathbb E[\mathbf e_t\mathbf e_t^{\mathsf T}]$ now depends on the control law. (c) Redo the LQR derivation with this noise and show that the optimal gain becomes $L_t = \big(R_u+B^{\mathsf T}S_{t+1}B+\sum_kC_k^{\mathsf T}S_{t+1}C_k\big)^{-1}B^{\mathsf T}S_{t+1}A$. Interpret the extra term. Why does this alone (before any estimation) predict smoother movements?
-
-**E5 (★★) — Minimal intervention, exactly.** (a) Prove $\ker S_t = A^{-1}\ker S_{t+1}$ for the terminal-cost-only problem with $A$ invertible, and hence $\ker L_t \supseteq A^{-1}\ker S_{t+1}$. (b) *Numerical:* take a 2-link planar arm linearized about a posture, with the task "get the fingertip to a target $x$-coordinate" (so $C$ is $1\times n$). Compute $L_t$ over a 500 ms horizon with additive noise, simulate 500 trials, and plot the trial-to-trial covariance ellipse of the joint angles at movement end. Verify that its long axis lies along the uncontrolled manifold. (c) Now change only $C$ (task = $y$-coordinate instead) and show the ellipse rotates. Explain why no trajectory-tracking controller with a fixed reference can produce this.
-
-**E6 (★★) — Eigenvalue spread in a granule basis.** (a) Derive the LMS mean-weight recursion, the stability bound, the mode time constants, and the bound $\tau_{\max}>\chi/2$. (b) *Numerical:* build two granule bases for the same $d(t)$: (i) $N=50$ leaky integrators with time constants log-spaced over a decade, driven by a common input — highly correlated; (ii) the same basis after Gram–Schmidt (a stand-in for Golgi decorrelation). Compute $\chi(R)$ for each, run LMS with $\mu$ at 10% of the stability bound, and plot MSE versus iteration. Quantify the speedup. (c) Now add NLMS and show it fixes the *scale* problem but not the *conditioning* problem. What does that imply about the division of labour between homeostatic gain control and Golgi decorrelation?
-
-**E7 (★★★) — The SPR condition.** (a) Reproduce the phasor derivation of §4.4 and obtain $\dot{\mathcal W}=-\tfrac\mu2(\mathcal D+B\mathcal W)$. (b) Extend to a plant with pure delay, $B(j\omega)=b\,e^{-j\omega T}$, and find the maximum frequency at which learning is stable. For $T=60$ ms, what is $f_{\max}$? (c) Show that filtered-X — correlating the error with $\hat B$-filtered regressors instead of raw regressors — replaces the condition by $\mathrm{Re}\{B\hat B^*\}>0$, i.e. a $\pm90^\circ$ tolerance on the *secondary path estimate*, and explain what anatomical structure would implement $\hat B$. (d) *Research-taste:* what would you expect to see, physiologically, in an animal whose plant phase has been experimentally pushed past $90^\circ$ (e.g. by an added feedback delay)?
-
-**E8 (★★) — The negative image is a projection.** (a) Derive $\sum_iw_ip_i=-\Pi_{\mathrm{span}\{p\}}r$ from the anti-Hebbian fixed point. (b) *Numerical:* let $r(t)$ be a difference of two Gaussians on $[0,200]$ ms, and let the basis be $N$ Gaussian bumps of width $\sigma$ tiling the interval. Compute the residual $\|r-\Pi r\|$ as a function of $N$ and $\sigma$. Find the regime where the residual is dominated by *basis coarseness* versus by *basis incompleteness at the edges*. (c) Design the experiment that distinguishes these two failure modes in a fish, and say what you would measure.
-
-**E9 (★★) — Kalman gain from a normalization circuit.** Consider two populations with Poisson-like variability encoding the same scalar $s$ with gains $g_1,g_2$. (a) Show that the optimal combination weights are $g_i/(g_1+g_2)$ and that these are the Kalman weights with $\sigma_i^2\propto1/g_i$. (b) Show that a divisive normalization circuit $r_i = g_i\,\hat s_i/(\sigma_0+g_1+g_2)$ computes the weighted mean exactly when $\sigma_0=0$, and characterize the bias introduced by $\sigma_0>0$. (c) Predict the behavioural signature of $\sigma_0>0$ in a cue-combination experiment, and say at what reliability levels it would be detectable.
-
-**E10 (★★★) — Open-ended.** Insects sniff: they beat their antennae, they walk, they fly, and each of these makes predictable changes to the odor plume arriving at the receptors. (a) Write down the state-space model you would use for "odor concentration at the antenna" with self-motion as the control input. What is $A$? What is $H$? Where does the efference copy enter? (b) The antennal lobe receives strong centrifugal input and there are known modulatory pathways from the motor system. What would you record, and what would you manipulate, to test whether the antennal lobe cancels self-generated input? (c) The hardest part: the mushroom body has the anatomy of a cerebellum-like adaptive filter (random expansion basis, plastic readout, modulatory error signal) but is universally described as a classifier. Are these the same algorithm? Write down the objective each one descends, identify precisely what differs, and design the experiment that tells them apart.
-
----
-
-## Solutions
-
-### S1
 *Forward.* $P_{t|t}=(P^{-1}+H^{\mathsf T}R^{-1}H)^{-1}$. Woodbury with $A=P^{-1}$, $U=H^{\mathsf T}$, $C=R^{-1}$, $V=H$:
 $$(P^{-1}+H^{\mathsf T}R^{-1}H)^{-1}=P-PH^{\mathsf T}(R+HPH^{\mathsf T})^{-1}HP = (I-KH)P.$$
 The gain identity is proved in §1.3: $K(HPH^{\mathsf T}+R)=PH^{\mathsf T}\Rightarrow KR=(I-KH)PH^{\mathsf T}=P_{t|t}H^{\mathsf T}\Rightarrow P_{t|t}H^{\mathsf T}R^{-1}=K$. Then $\hat{\mathbf x}_{t|t}=P_{t|t}(P^{-1}\hat{\mathbf x}+H^{\mathsf T}R^{-1}\mathbf z)=(I-KH)\hat{\mathbf x}+K\mathbf z=\hat{\mathbf x}+K(\mathbf z-H\hat{\mathbf x})$.
@@ -459,7 +437,12 @@ Since $S-HPH^{\mathsf T}=R$, the bracket is $-S^{-1}+R^{-1}RS^{-1}=0$, and the p
 
 *Which form would a circuit prefer?* The information form adds precisions — an additive, commutative, order-independent operation over an arbitrary number of cues, which is exactly what population codes do naturally (Unit 06 §1.5: adding firing rates adds natural parameters). It requires an $n\times n$ inversion only if you want an explicit mean, which a circuit that keeps everything in natural-parameter coordinates never needs. The gain form requires an $m\times m$ inversion. So: **if $H$ is wide (few observations, many states, $m\ll n$), the gain form is cheap; if $H$ is tall (many observations, few states, $m\gg n$) the information form is cheap.** Sensory systems are overwhelmingly in the second regime — tens of thousands of receptors, a low-dimensional latent — which is a real argument for expecting brains to operate in natural parameters, i.e. to represent precision-weighted quantities rather than means and covariances separately.
 
-### S2
+</details>
+
+**E2 (★★) — Innovations are white.** Show that $\boldsymbol\nu_t = \mathbf z_t - H\hat{\mathbf x}_{t|t-1}$ satisfies $\mathbb E[\boldsymbol\nu_t]=0$, $\operatorname{Cov}(\boldsymbol\nu_t)=HP_{t|t-1}H^{\mathsf T}+R$, and $\mathbb E[\boldsymbol\nu_t\boldsymbol\nu_s^{\mathsf T}]=0$ for $s\ne t$. Then argue that the Kalman filter is the optimal *whitening filter* for the observation sequence, and connect this to the decorrelation objectives of Unit 05. What experimental signature would "the circuit outputs innovations" have that "the circuit outputs observations" would not?
+
+<details markdown="1"><summary>Solution</summary>
+
 $\boldsymbol\nu_t = \mathbf z_t-H\hat{\mathbf x}_{t|t-1} = H(\mathbf x_t-\hat{\mathbf x}_{t|t-1})+\mathbf v_t = H\mathbf e_{t|t-1}+\mathbf v_t$. Unbiasedness of the filter gives $\mathbb E[\boldsymbol\nu_t]=0$. Independence of $\mathbf v_t$ from $\mathbf e_{t|t-1}$ (which depends only on past noises) gives $\operatorname{Cov}(\boldsymbol\nu_t)=HP_{t|t-1}H^{\mathsf T}+R$.
 
 Whiteness: $\boldsymbol\nu_s$ for $s<t$ is a measurable function of $\mathbf z_{1:s}\subseteq\mathbf z_{1:t-1}$. By the tower property,
@@ -470,7 +453,12 @@ So the map $\{\mathbf z_t\}\mapsto\{\boldsymbol\nu_t\}$ is causal, causally inve
 
 Experimental signature: a circuit that outputs innovations should show **adaptation to predictability, not just to intensity**. Present a stimulus sequence with strong temporal correlation and the responses should shrink to the *unpredictable* component while a shuffled sequence with identical marginal statistics produces large responses. Additionally, the output autocorrelation should be flat, and the response to an omitted-but-expected stimulus should be a deflection of the *opposite* sign — the classic omission response, which is a signature no observation-reporting circuit produces.
 
-### S3
+</details>
+
+**E3 (★★) — LQR by completing the square.** Carry out the backward induction in full, including the constant term $c_t$, and verify the Riccati recursion. Then show that if $Q\succeq0$ and $(A,B)$ is stabilizable, $S_t$ converges as $N-t\to\infty$ to the stabilizing solution of the algebraic Riccati equation. Finally: state the duality map that turns the control Riccati into the estimation Riccati.
+
+<details markdown="1"><summary>Solution</summary>
+
 Induction hypothesis $V_{t+1}(\mathbf x)=\mathbf x^{\mathsf T}S_{t+1}\mathbf x+c_{t+1}$. Then
 $$\mathbb E V_{t+1}(A\mathbf x+B\mathbf u+\mathbf w) = (A\mathbf x+B\mathbf u)^{\mathsf T}S_{t+1}(A\mathbf x+B\mathbf u)+\operatorname{Tr}(S_{t+1}Q)+c_{t+1}.$$
 The $\mathbf u$-dependent part is $\mathbf u^{\mathsf T}(R_u+B^{\mathsf T}S_{t+1}B)\mathbf u + 2\mathbf u^{\mathsf T}B^{\mathsf T}S_{t+1}A\mathbf x$. Write $M=R_u+B^{\mathsf T}S_{t+1}B\succ0$ and $N=B^{\mathsf T}S_{t+1}A$. Completing the square:
@@ -483,7 +471,12 @@ Duality: the control recursion in backward time with $(A,B,Q,R_u)$ maps to the e
 $$A\to A^{\mathsf T},\quad B\to H^{\mathsf T},\quad Q\to Q_{\text{proc}},\quad R_u\to R,\quad S_t\to P_{t|t-1},\quad L_t^{\mathsf T}\to K_t.$$
 Both are the same Riccati flow, whose solutions are the stable/unstable invariant subspaces of the Hamiltonian matrix $\begin{bmatrix}A & -BR_u^{-1}B^{\mathsf T}\\ -Q & -A^{\mathsf T}\end{bmatrix}$.
 
-### S4
+</details>
+
+**E4 (★★) — Separation, and its failure.** (a) Prove the separation theorem following §2.2, being explicit about where the orthogonality principle is used. (b) Now let the noise be signal-dependent: $\mathbf w_t = \sum_k \epsilon_{t,k}C_k\mathbf u_t$ with $\epsilon\sim\mathcal N(0,1)$ i.i.d. Show that Step 1 fails — that $\mathbb E[\mathbf e_t\mathbf e_t^{\mathsf T}]$ now depends on the control law. (c) Redo the LQR derivation with this noise and show that the optimal gain becomes $L_t = \big(R_u+B^{\mathsf T}S_{t+1}B+\sum_kC_k^{\mathsf T}S_{t+1}C_k\big)^{-1}B^{\mathsf T}S_{t+1}A$. Interpret the extra term. Why does this alone (before any estimation) predict smoother movements?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) See §2.2. The orthogonality principle is used exactly once, in Step 2: $\mathbb E[\hat{\mathbf x}_t^{\mathsf T}Q\mathbf e_t]=0$ because $\mathbf e_t$ is orthogonal to the linear span of the observations and $\hat{\mathbf x}_t$ lies in that span. Everything else is algebra.
 
 (b) With $\mathbf w_t=\sum_k\epsilon_{t,k}C_k\mathbf u_t$, the error recursion still has the $B\mathbf u$ terms cancelling, giving $\mathbf e_{t+1}=(I-K_{t+1}H)(A\mathbf e_t+\mathbf w_t)-K_{t+1}\mathbf v_{t+1}$ — but now $\operatorname{Cov}(\mathbf w_t)=\sum_kC_k\mathbf u_t\mathbf u_t^{\mathsf T}C_k^{\mathsf T}$ *depends on the control*, so
@@ -496,7 +489,12 @@ Interpretation: the extra term is an **endogenous control cost that scales with 
 
 Why smoother movements: to move a fixed distance you must supply a fixed impulse $\int u\,dt$. The variance injected is $\propto\int u^2\,dt$, which for fixed impulse over duration $T$ is minimized by spreading $u$ out — by Cauchy–Schwarz, $\int u^2 \ge (\int u)^2/T$, with equality for constant $u$. Combined with a terminal accuracy cost and the smoothing of the plant, this yields the characteristic bell-shaped velocity profile of the minimum-variance model (Harris & Wolpert 1998), *with no smoothness cost postulated anywhere.* Kinematics from a noise model.
 
-### S5
+</details>
+
+**E5 (★★) — Minimal intervention, exactly.** (a) Prove $\ker S_t = A^{-1}\ker S_{t+1}$ for the terminal-cost-only problem with $A$ invertible, and hence $\ker L_t \supseteq A^{-1}\ker S_{t+1}$. (b) *Numerical:* take a 2-link planar arm linearized about a posture, with the task "get the fingertip to a target $x$-coordinate" (so $C$ is $1\times n$). Compute $L_t$ over a 500 ms horizon with additive noise, simulate 500 trials, and plot the trial-to-trial covariance ellipse of the joint angles at movement end. Verify that its long axis lies along the uncontrolled manifold. (c) Now change only $C$ (task = $y$-coordinate instead) and show the ellipse rotates. Explain why no trajectory-tracking controller with a fixed reference can produce this.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) With $Q=0$ for $t<N$, $S_t = A^{\mathsf T}(I+S_{t+1}BR_u^{-1}B^{\mathsf T})^{-1}S_{t+1}A$. The middle factor is invertible (it is $I$ plus a product of PSD matrices; its eigenvalues are $\ge1$ after similarity to $I+R_u^{-1/2}B^{\mathsf T}S B R_u^{-1/2}$-type forms). With $A$ invertible, $A^{\mathsf T}$ is injective, so
 $$S_t\mathbf x=0\iff S_{t+1}A\mathbf x=0\iff \mathbf x\in A^{-1}\ker S_{t+1}.$$
 Iterating from $S_N=C^{\mathsf T}C$ gives $\ker S_t=A^{-(N-t)}\ker(C^{\mathsf T}C) = A^{-(N-t)}\ker C$. And $L_t=M^{-1}B^{\mathsf T}S_{t+1}A$, so $L_t\mathbf x=0$ whenever $A\mathbf x\in\ker S_{t+1}$, i.e. $\mathbf x\in A^{-1}\ker S_{t+1}=\ker S_t$. The gain literally does not see deviations that will end up task-irrelevant.
@@ -507,7 +505,12 @@ What you will see: the covariance ellipse of $(\theta_1,\theta_2)$ at movement e
 
 Why a trajectory-tracking controller cannot do this: such a controller is defined by a reference $\boldsymbol\theta^\ast(t)$ and a fixed feedback law $\mathbf u=-L(\boldsymbol\theta-\boldsymbol\theta^\ast)$ with $L$ derived from the *plant*, not from the task. Its closed-loop noise response is $\operatorname{Cov} = $ solution of a Lyapunov equation involving only $A-BL$ and the noise covariance. Nothing in that expression knows about $C$. To reproduce the rotation you would have to re-derive $L$ per task, at which point you have conceded the point: you are doing optimal feedback control.
 
-### S6
+</details>
+
+**E6 (★★) — Eigenvalue spread in a granule basis.** (a) Derive the LMS mean-weight recursion, the stability bound, the mode time constants, and the bound $\tau_{\max}>\chi/2$. (b) *Numerical:* build two granule bases for the same $d(t)$: (i) $N=50$ leaky integrators with time constants log-spaced over a decade, driven by a common input — highly correlated; (ii) the same basis after Gram–Schmidt (a stand-in for Golgi decorrelation). Compute $\chi(R)$ for each, run LMS with $\mu$ at 10% of the stability bound, and plot MSE versus iteration. Quantify the speedup. (c) Now add NLMS and show it fixes the *scale* problem but not the *conditioning* problem. What does that imply about the division of labour between homeostatic gain control and Golgi decorrelation?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Weight error $\mathbf v=\mathbf w-\mathbf w_o$ with $\mathbf w_o=R^{-1}\mathbf r_{dp}$. LMS: $\mathbf w(n+1)=\mathbf w(n)+\mu\varepsilon(n)\mathbf p(n)$, $\varepsilon = d-\mathbf w^{\mathsf T}\mathbf p$. Substituting $d = \mathbf w_o^{\mathsf T}\mathbf p+\varepsilon_o$ with $\varepsilon_o$ orthogonal to $\mathbf p$:
 $$\mathbf v(n+1) = \mathbf v(n)-\mu\mathbf p\mathbf p^{\mathsf T}\mathbf v(n)+\mu\varepsilon_o\mathbf p.$$
 Taking expectations under the independence assumption ($\mathbf p(n)$ independent of $\mathbf v(n)$) and $\mathbb E[\varepsilon_o\mathbf p]=0$: $\mathbb E[\mathbf v(n+1)]=(I-\mu R)\mathbb E[\mathbf v(n)]$. Rotating to $R$'s eigenbasis decouples the modes: $(1-\mu\lambda_i)^n$. Stability requires $|1-\mu\lambda_i|<1$ for all $i$, i.e. $0<\mu<2/\lambda_{\max}$. Time constants $\tau_i=-1/\ln|1-\mu\lambda_i|\approx1/(\mu\lambda_i)$. The slowest is $\tau_{\max}=1/(\mu\lambda_{\min})$, and imposing $\mu<2/\lambda_{\max}$ gives $\tau_{\max}>\lambda_{\max}/(2\lambda_{\min})=\chi/2$. $\square$
@@ -518,7 +521,12 @@ Taking expectations under the independence assumption ($\mathbf p(n)$ independen
 
 The division of labour this implies is clean and testable: **homeostatic/heterosynaptic gain control at the Purkinje cell is the NLMS step (it sets a safe, scale-invariant learning rate), while Golgi-mediated decorrelation of the granule population is the conditioning step (it sets how many steps are needed).** They are separately necessary and separately manipulable. Knock out Golgi feedback and you should see learning that is stable but pathologically slow along some stimulus directions and normal along others — an anisotropic learning deficit, which is a much more specific prediction than "impaired learning."
 
-### S7
+</details>
+
+**E7 (★★★) — The SPR condition.** (a) Reproduce the phasor derivation of §4.4 and obtain $\dot{\mathcal W}=-\tfrac\mu2(\mathcal D+B\mathcal W)$. (b) Extend to a plant with pure delay, $B(j\omega)=b\,e^{-j\omega T}$, and find the maximum frequency at which learning is stable. For $T=60$ ms, what is $f_{\max}$? (c) Show that filtered-X — correlating the error with $\hat B$-filtered regressors instead of raw regressors — replaces the condition by $\mathrm{Re}\{B\hat B^*\}>0$, i.e. a $\pm90^\circ$ tolerance on the *secondary path estimate*, and explain what anatomical structure would implement $\hat B$. (d) *Research-taste:* what would you expect to see, physiologically, in an animal whose plant phase has been experimentally pushed past $90^\circ$ (e.g. by an added feedback delay)?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) See §4.4.
 
 (b) With $B(j\omega)=b\,e^{-j\omega T}$, $b>0$: $\mathrm{Re}\{B\}=b\cos\omega T>0\iff \omega T<\pi/2$, so
@@ -531,7 +539,12 @@ Anatomically, $\hat B$ is a *forward model of the plant applied to the teaching 
 
 (d) With plant phase pushed past $90^\circ$ in the band the basis occupies, the mean weight dynamics have an unstable pole. Physiologically you should see: growing rather than shrinking Purkinje-cell modulation at that frequency; oscillatory motor output at approximately that frequency, growing over trials; and — importantly — *the error growing over training*, which is qualitatively different from failure-to-learn. If instead the animal simply fails to improve, that suggests either that the basis is not spanning that band or that a gating mechanism suppresses learning when the error is anti-correlated with the prediction, which would itself be a discovery. Either outcome is informative, which is what makes it a good experiment.
 
-### S8
+</details>
+
+**E8 (★★) — The negative image is a projection.** (a) Derive $\sum_iw_ip_i=-\Pi_{\mathrm{span}\{p\}}r$ from the anti-Hebbian fixed point. (b) *Numerical:* let $r(t)$ be a difference of two Gaussians on $[0,200]$ ms, and let the basis be $N$ Gaussian bumps of width $\sigma$ tiling the interval. Compute the residual $\|r-\Pi r\|$ as a function of $N$ and $\sigma$. Find the regime where the residual is dominated by *basis coarseness* versus by *basis incompleteness at the edges*. (c) Design the experiment that distinguishes these two failure modes in a fish, and say what you would measure.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Averaged rule $\dot w_i \propto -\int y(t)p_i(t)dt$ with $y=r+\sum_jw_jp_j$. Setting $\dot{\mathbf w}=0$: $\int rp_i + \sum_j w_j\int p_ip_j=0$, i.e. $G\mathbf w=-\mathbf b$, $\mathbf w=-G^{-1}\mathbf b$. Then
 $$\sum_iw_ip_i = -\sum_i (G^{-1}\mathbf b)_i\,p_i = -\Pi r,$$
 recognizing $\Pi = P(P^{\mathsf T}P)^{-1}P^{\mathsf T}$ (with $P$ the matrix whose columns are the sampled $p_i$) as the orthogonal projector onto $\mathrm{span}\{p_i\}$. The residual output is $y = r-\Pi r = \Pi^\perp r$: **the circuit outputs the component of the reafference its basis cannot explain.** Convergence to this fixed point is the LMS story of S6 with $R\to G$; note the anti-Hebbian sign is what makes it stable (Hebbian would make $G$ enter with the wrong sign and diverge).
@@ -543,14 +556,24 @@ Distinguish them by the residual's spectrum and its time course: coarseness give
 
 (c) Experiment. Deliver artificial reafferent stimuli, time-locked to the EOD command, of systematically varied temporal shape: (i) a sequence of increasingly narrow pulses (probes coarseness) and (ii) pulses at increasing delays after the command (probes coverage). Measure the asymptotic residual response of ELL principal cells after cancellation has plateaued. Coarseness predicts a residual that grows monotonically as the pulse narrows, with a corner at the granule-cell basis width; incompleteness predicts a residual that is near zero within some delay window and jumps to near-full response outside it. The two make different predictions about *learning rate* too: coarseness-limited cancellation should be fast (well-spanned directions) with a persistent floor; incompleteness-limited cancellation should show near-zero learning outside the covered window. Kennedy et al. (2014) is essentially this experiment.
 
-### S9
+</details>
+
+**E9 (★★) — Kalman gain from a normalization circuit.** Consider two populations with Poisson-like variability encoding the same scalar $s$ with gains $g_1,g_2$. (a) Show that the optimal combination weights are $g_i/(g_1+g_2)$ and that these are the Kalman weights with $\sigma_i^2\propto1/g_i$. (b) Show that a divisive normalization circuit $r_i = g_i\,\hat s_i/(\sigma_0+g_1+g_2)$ computes the weighted mean exactly when $\sigma_0=0$, and characterize the bias introduced by $\sigma_0>0$. (c) Predict the behavioural signature of $\sigma_0>0$ in a cue-combination experiment, and say at what reliability levels it would be detectable.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) With Poisson-like variability, population $i$ yields a Gaussian likelihood with precision $\propto g_i$ (§1.5), so the posterior mean is $\hat s = (g_1\hat s_1+g_2\hat s_2)/(g_1+g_2)$ with weights $g_i/(g_1+g_2)$. Writing $\sigma_i^2 = \kappa/g_i$, the weight is $g_1/(g_1+g_2) = \sigma_2^2/(\sigma_1^2+\sigma_2^2) = \sigma_1^{-2}/(\sigma_1^{-2}+\sigma_2^{-2})$, which is the scalar Kalman gain with "prior" 1 and "observation" 2.
 
 (b) A divisive circuit computing $r = (g_1\hat s_1+g_2\hat s_2)/(\sigma_0+g_1+g_2)$ returns the optimal estimate exactly when $\sigma_0=0$. For $\sigma_0>0$ it returns $\hat s\cdot\frac{g_1+g_2}{\sigma_0+g_1+g_2}$: the estimate is **shrunk toward zero** by a factor $<1$ that depends on total input drive. In estimation terms this is an implicit zero-mean prior with precision $\propto\sigma_0$ — the semi-saturation constant *is* a prior. The relative weighting of the two cues is unaffected; only the overall magnitude is biased.
 
 (c) Behavioural signature: at low total reliability (both cues weak, $g_1+g_2\sim\sigma_0$), estimates should be systematically biased toward the centre of the response range, with the bias vanishing as stimulus strength increases. This is a *central tendency* / regression-to-the-mean effect, and it is ubiquitous in psychophysics. Detectability: the bias is $\sigma_0/(\sigma_0+g_1+g_2)$, so you need to push total drive down to within an order of magnitude of $\sigma_0$; in practice, near-threshold stimuli. The clean test is that the bias should be predictable from the *sum* of reliabilities while the cue weights remain predictable from their *ratio* — two dissociable predictions from one circuit parameter.
 
-### S10
+</details>
+
+**E10 (★★★) — Open-ended.** Insects sniff: they beat their antennae, they walk, they fly, and each of these makes predictable changes to the odor plume arriving at the receptors. (a) Write down the state-space model you would use for "odor concentration at the antenna" with self-motion as the control input. What is $A$? What is $H$? Where does the efference copy enter? (b) The antennal lobe receives strong centrifugal input and there are known modulatory pathways from the motor system. What would you record, and what would you manipulate, to test whether the antennal lobe cancels self-generated input? (c) The hardest part: the mushroom body has the anatomy of a cerebellum-like adaptive filter (random expansion basis, plastic readout, modulatory error signal) but is universally described as a classifier. Are these the same algorithm? Write down the objective each one descends, identify precisely what differs, and design the experiment that tells them apart.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) A workable model. State $\mathbf x_t$ = the odor concentration vector at the antenna in receptor-channel space, or better, the latent (source identity, source distance/bearing, plume phase) that generates it. For the simplest useful version, let $\mathbf x$ be the local concentration field sampled at the antenna, with
 $$\mathbf x_{t+1} = A\mathbf x_t + B\mathbf u_t+\mathbf w_t,\qquad \mathbf z_t=H\mathbf x_t+\mathbf v_t.$$
 - $A$: the plume's own temporal correlation structure — intermittent, heavy-tailed, with correlation times of tens to hundreds of ms. This is the internal model of odor dynamics, and it is *not* Gaussian, which is the first honest caveat.
@@ -571,3 +594,5 @@ They are the same *machinery* — LMS in a fixed random basis — descending dif
 4. **Is the modulatory signal driven by the circuit's own output?** Anatomically: is there a MBON$\to$DAN feedback loop of the sign required to make the DAN carry $s-m$? There is known MBON–DAN recurrence in *Drosophila*, and its sign structure is the crux. If the loop implements $e = s-m$, the mushroom body is an adaptive filter that happens to be trained on reinforcement; if it does not, it is a classifier.
 
 My own view, offered as a hypothesis rather than a conclusion: these are not competing accounts but the same algorithm at two levels of the error hierarchy, and the productive question is not "which is it" but "what is $s$?" — i.e. what quantity is the mushroom body predicting. An animal that predicts reinforcement and an animal that predicts its own reafference are running the same filter with different inputs to the error channel. That is exactly the kind of statement this course exists to make precise.
+
+</details>

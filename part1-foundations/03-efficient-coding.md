@@ -454,57 +454,22 @@ That question is, in miniature, the entire subject of this course.
 ---
 
 ## Exercises
-
 **E3.1 (★) The gauge group of whitening.**
 Let $x\in\mathbb R^n$ with covariance $\Sigma\succ0$. Prove that $W$ satisfies $\operatorname{Cov}(Wx)=I$ iff $W=R\Sigma^{-1/2}$ for some $R\in O(n)$. Count the dimension of the solution set. Then show that the symmetric choice ($R=I$, "ZCA") is the unique whitening map minimizing $\mathbb E\|Wx-x\|^2$, and explain in one sentence why that makes it the "most center-surround-like" option.
+
+<details markdown="1"><summary>Solution</summary>
+
+$\operatorname{Cov}(Wx)=W\Sigma W^{\mathsf T}=I$. Let $A=W\Sigma^{1/2}$ (with $\Sigma^{1/2}$ the symmetric positive root). Then $AA^{\mathsf T}=I$, i.e. $A\in O(n)$, so $W=A\Sigma^{-1/2}$ with $A=R$ arbitrary orthogonal; conversely any such $W$ whitens. The solution set is a coset of $O(n)$, of dimension $n(n-1)/2$ (the dimension of the orthogonal group), embedded in the $n^2$-dimensional space of matrices — so whitening imposes $n(n+1)/2$ constraints, precisely the number of independent entries of a symmetric covariance.
+For the ZCA claim: minimize $\mathbb E\|Wx-x\|^2 = \operatorname{tr}\big[(W-I)\Sigma(W-I)^{\mathsf T}\big]$ over $W=R\Sigma^{-1/2}$. Expanding, $\operatorname{tr}[W\Sigma W^{\mathsf T}] - 2\operatorname{tr}[W\Sigma]+\operatorname{tr}\Sigma = n - 2\operatorname{tr}[R\Sigma^{1/2}]+\operatorname{tr}\Sigma$, so we must maximize $\operatorname{tr}[R\Sigma^{1/2}]$ over $R\in O(n)$. By von Neumann's trace inequality (or the SVD of $\Sigma^{1/2}=U\Lambda^{1/2}U^{\mathsf T}$: $\operatorname{tr}[RU\Lambda^{1/2}U^{\mathsf T}]=\operatorname{tr}[U^{\mathsf T}RU\Lambda^{1/2}]\le\sum_i\lambda_i^{1/2}$ with equality iff $U^{\mathsf T}RU=I$), the maximum is at $R=I$. ZCA is the whitening map closest to the identity, hence the one that preserves the spatial layout of the input; a kernel that is "identity minus a smooth blur" is exactly a center-surround.
+
+</details>
 
 **E3.2 (★★) The Atick–Redlich optimum, exactly.**
 Starting from $I-\lambda P$ as in §2.2, rederive the boxed expression for $|K(f)|^2$. Then (a) take the two limits carefully: the *signal-dominated* limit $N\to0$ at fixed $N_o$, and the *free-information* limit $N_o\to0$ at fixed $N,\lambda$. One of them gives whitening; the other gives something you should be able to explain in a sentence. Which is which, and why is it a common source of confusion to say "infomax implies whitening"? (b) show the cutoff condition $S/N>\Theta$ with $\Theta = 2\lambda N_o/(1-2\lambda N_o)$ and interpret the requirement $\lambda N_o<1/2$; (c) show that the optimum can be factored as $|K|^2 = \frac{1}{S+N}\cdot\Psi(S/N)$ for some function $\Psi$, i.e. "whiten the input, then apply an SNR-dependent taper," and identify $\Psi$.
 
-**E3.3 (★★, numerical) The surround dies in the dark.**
-Take $S(f)=1/(f^2+f_0^2)$ on a 1-D frequency grid ($f_0$ a small regularizer), $N_o$ fixed, and $N = N_1/\bar L$ scaled so that $\mathrm{SNR}\propto\bar L$. For $\bar L\in\{1,10^{-1},10^{-2}\}$, compute $|K(f)|$, take the (zero-phase) inverse FFT, and plot $k(x)$. Quantify the surround by $\rho = -\big(\sum_{x\ne0}\min(k(x),0)\big)\big/\sum_x\max(k(x),0)$ and plot $\rho$ vs. $\bar L$. Then repeat with a *random* phase $\theta(f)$ and confirm that $I$ and $P$ are unchanged while $k(x)$ is unrecognizable. State in one sentence what the second part demonstrates about the epistemic status of "the theory predicts center-surround."
+<details markdown="1"><summary>Solution</summary>
 
-**E3.4 (★★) Histogram equalization is entropy maximization is ICA's nonlinearity.**
-(a) Derive $g=\mathrm{CDF}$ for the single-neuron infomax problem, being explicit about where boundedness of the output is used.
-(b) Show that if the noise is *output-referred with constant variance*, this is right, but if the noise is *input-referred* with constant variance, the optimal $g$ is instead $g'\propto p_s^{1/3}$. (Hint: with input noise $\sigma_s$, output noise entropy depends on $g'$.) Comment on why this matters for interpreting any measured transfer function.
-(c) Connect (a) to the Bell–Sejnowski/ML-ICA equivalence condition $\phi'=p_s$.
-
-**E3.5 (★★★) Infomax equals maximum likelihood ICA.**
-Prove the equivalence in full: state the generative model, write the log-likelihood per sample, write the Bell–Sejnowski entropy objective, and show they agree up to an additive constant exactly when $\phi=\int p_s$. Then derive the natural-gradient update $\Delta W\propto(I+\hat y u^{\mathsf T})W$ and show that its fixed points satisfy $\mathbb E[\hat y_iu_j]=-\delta_{ij}$. Interpret this last condition as a set of nonlinear decorrelation constraints and count them against the $n^2$ parameters of $W$.
-
-**E3.6 (★★) Tuning-curve allocation.**
-(a) Derive $J(s)=cTg(s)d(s)^2$ carefully, stating the two places Poisson summation is used and the condition under which the $g'^2/g$ term is negligible.
-(b) Derive $d\propto p^{1/(1+\alpha)}$ for the loss family $L_\alpha=\int p\,\delta^\alpha$, and obtain $d\propto p$ as the $\alpha\to0$ limit by an independent route (maximize $\int p\log J$).
-(c) Now allow the gain to vary as well, with a spike budget $\int p(s)g(s)\,ds = G$ *and* a neuron budget $\int d = N$. Find the jointly optimal $(d,g)$ under the infomax objective and comment on the relative "exchange rate" between neurons and spikes.
-
-**E3.7 (★★) Divisive normalization as GSM inference.**
-Let $\mathbf L=\sqrt v\,\mathbf u$, $\mathbf u\sim\mathcal N(0,\Sigma)$, $v$ with prior $p(v)$.
-(a) Show $\operatorname{Cov}(\mathbf L)=\mathbb E[v]\Sigma$ but that $L_i$ and $L_j$ are *not* independent even when $\Sigma$ is diagonal, by computing $\operatorname{Cov}(L_i^2,L_j^2)$ and showing it is $\propto \operatorname{Var}(v)$.
-(b) With $\Sigma=I$ and a Jeffreys-like scale prior $p(v)\propto1/v$, compute the posterior mean $\mathbb E[v\,|\,\mathbf L]$ and show that $L_i/\sqrt{\mathbb E[v|\mathbf L]}$ has the form of a divisive normalization with a semi-saturation constant arising from a proper prior.
-(c) Explain why the normalization pool weights $w_{ij}$ should track the strength of statistical dependency between filters $i$ and $j$, and what physiological measurement would test this.
-
-**E3.8 (★★) Sparse coding is a recurrent circuit.**
-(a) Derive the gradient dynamics for $a$ under $E=\|I-\Phi a\|^2+\lambda\sum_i|a_i|$ (use subgradients or the LCA formulation with internal variables $u_i$ and $a_i=T_\lambda(u_i)$), and show explicitly that the lateral connectivity is $-\Phi^{\mathsf T}\Phi$ off-diagonal.
-(b) Show that the network's fixed point satisfies the LASSO optimality conditions $\phi_i^{\mathsf T}(I-\Phi a)=\tfrac{\lambda}{2}\operatorname{sgn}(a_i)$ for $a_i\ne0$ and $|\phi_i^{\mathsf T}(I-\Phi a)|\le\tfrac\lambda2$ otherwise.
-(c) Predict how the measured "receptive field" of unit $i$ (the STA under white noise input) differs from $\phi_i$ when the dictionary is overcomplete and the lateral inhibition is strong. This is a real experimental confound; describe it.
-
-**E3.9 (★★) Compressed sensing arithmetic for noses.**
-(a) Using $M \ge C k\log(N/k)$ with $C=2$, solve for the mixture complexity $k$ recoverable by the fly ($M=50$, $N=10^4$) and the mouse ($M=1000$, $N=10^4$). Plot $k$ vs $M$.
-(b) Real receptor–ligand affinities are non-negative and correlated across receptors, not i.i.d. Gaussian. Explain qualitatively how correlation in $W$ degrades recovery, using the notion of mutual coherence $\mu(W)=\max_{i\neq j}|w_i^{\mathsf T}w_j|/(\|w_i\|\|w_j\|)$ and the guarantee $k<\tfrac12(1+1/\mu)$.
-(c) Numerically: generate $W$ with rows drawn from a lognormal affinity distribution, generate $k$-sparse non-negative $\mathbf c$, add Poisson noise to $\mathbf r=W\mathbf c$, and measure support-recovery accuracy of non-negative $\ell_1$ as a function of $k$ and of the width of the lognormal. Report where the fly's $M=50$ actually lands, as opposed to where the theorem says it should.
-
-**E3.10 (★★★, open-ended, research taste) Falsifying an efficient-coding claim in the locust antennal lobe.**
-The claim on the table: *"The projection-neuron transformation in the locust antennal lobe implements redundancy reduction on the natural ensemble of odor plumes, subject to a spike budget."*
-Design an experimental and analytical program that could **falsify** it. Your answer must specify (i) what you would measure to estimate the "natural ensemble" — and confront the fact that this is much harder than photographing a forest; (ii) which of the four free choices (objective / constraint / ensemble / noise) you would fix independently rather than fit; (iii) at least one *relation* the theory predicts that could come out wrong, in the style of Atick–Redlich's light-level prediction; (iv) a plausible outcome that would be consistent with the claim but that you would nevertheless refuse to count as confirmation, and why. Half a page. There is no single right answer; there are many wrong ones.
-
----
-
-## Solutions
-
-**S3.1.** $\operatorname{Cov}(Wx)=W\Sigma W^{\mathsf T}=I$. Let $A=W\Sigma^{1/2}$ (with $\Sigma^{1/2}$ the symmetric positive root). Then $AA^{\mathsf T}=I$, i.e. $A\in O(n)$, so $W=A\Sigma^{-1/2}$ with $A=R$ arbitrary orthogonal; conversely any such $W$ whitens. The solution set is a coset of $O(n)$, of dimension $n(n-1)/2$ (the dimension of the orthogonal group), embedded in the $n^2$-dimensional space of matrices — so whitening imposes $n(n+1)/2$ constraints, precisely the number of independent entries of a symmetric covariance.
-For the ZCA claim: minimize $\mathbb E\|Wx-x\|^2 = \operatorname{tr}\big[(W-I)\Sigma(W-I)^{\mathsf T}\big]$ over $W=R\Sigma^{-1/2}$. Expanding, $\operatorname{tr}[W\Sigma W^{\mathsf T}] - 2\operatorname{tr}[W\Sigma]+\operatorname{tr}\Sigma = n - 2\operatorname{tr}[R\Sigma^{1/2}]+\operatorname{tr}\Sigma$, so we must maximize $\operatorname{tr}[R\Sigma^{1/2}]$ over $R\in O(n)$. By von Neumann's trace inequality (or the SVD of $\Sigma^{1/2}=U\Lambda^{1/2}U^{\mathsf T}$: $\operatorname{tr}[RU\Lambda^{1/2}U^{\mathsf T}]=\operatorname{tr}[U^{\mathsf T}RU\Lambda^{1/2}]\le\sum_i\lambda_i^{1/2}$ with equality iff $U^{\mathsf T}RU=I$), the maximum is at $R=I$. ZCA is the whitening map closest to the identity, hence the one that preserves the spatial layout of the input; a kernel that is "identity minus a smooth blur" is exactly a center-surround.
-
-**S3.2.** The derivation is in §2.2; carry it out yourself and check the discriminant simplification $ (A+N)^2-4AN=(A-N)^2=S^2$.
+The derivation is in §2.2; carry it out yourself and check the discriminant simplification $ (A+N)^2-4AN=(A-N)^2=S^2$.
 (a) *Signal-dominated limit,* $N\to0$ at fixed $N_o$: expanding as in §2.3, $|K|^2\to \frac{1}{2\lambda S}-\frac{N_o}{S}\propto 1/S$. **Whitening.**
 *Free-information limit,* $N_o\to0$ at fixed $N,\lambda$: now $\frac{2N}{\lambda N_oS}\to\infty$, so $S\sqrt{1+\cdot}\approx\sqrt{2NS/(\lambda N_o)}$ and
 $$g\approx\frac{N_o}{2N(S+N)}\sqrt{\frac{2NS}{\lambda N_o}}=\frac{1}{S+N}\sqrt{\frac{N_oS}{2\lambda N}}\;\longrightarrow\;0 .$$
@@ -514,27 +479,66 @@ With no output noise, information costs nothing to transmit at arbitrarily small
 $$g=\frac{N_o}{2N(S+N)}\left(S\sqrt{1+\tfrac{2}{\lambda N_o r}}-S-2N\right)=\frac{1}{S+N}\cdot\frac{N_o}{2}\left(r\sqrt{1+\tfrac{2}{\lambda N_o r}}-r-2\right),$$
 so $\Psi(r)=\frac{N_o}{2}\big(r\sqrt{1+2/(\lambda N_o r)}-r-2\big)^+$: a factor $1/(S+N)$ that whitens the *observed* input, times a taper $\Psi$ that is a monotone increasing function of local SNR alone, saturating at large $r$ (since $r\sqrt{1+\epsilon/r}\approx r+\tfrac{1}{2\lambda N_o}$, giving $\Psi\to \tfrac{1}{4\lambda}-N_o$) and hitting zero at $r=\Theta$. This is precisely "Wiener-then-whiten": the taper is a smoothed version of the Wiener gain $r/(1+r)$.
 
-**S3.3.** Numerical; the qualitative results to look for: (i) at $\bar L=1$ the kernel is a clear Mexican hat with $\rho\approx0.3$–$0.5$; at $\bar L=10^{-2}$ it is a single positive lobe with $\rho\approx0$; (ii) $\rho$ decreases monotonically with $\bar L$ decreasing, and the peak spatial frequency shifts down; (iii) the random-phase kernel has identical $\int|K|^2S$ and identical $\int\log(1+\mathrm{SNR})$, because both functionals depend only on $|K|$, yet looks like noise in space. **Conclusion to state:** the information-theoretic objective predicts the *amplitude spectrum* and nothing else; "center-surround" is produced by the additional, unstated assumption of zero phase, which is justified by locality/wiring arguments external to the theory. Any paper that presents center-surround as a prediction of infomax alone has smuggled in a gauge choice.
+</details>
 
-**S3.4.**
+**E3.3 (★★, numerical) The surround dies in the dark.**
+Take $S(f)=1/(f^2+f_0^2)$ on a 1-D frequency grid ($f_0$ a small regularizer), $N_o$ fixed, and $N = N_1/\bar L$ scaled so that $\mathrm{SNR}\propto\bar L$. For $\bar L\in\{1,10^{-1},10^{-2}\}$, compute $|K(f)|$, take the (zero-phase) inverse FFT, and plot $k(x)$. Quantify the surround by $\rho = -\big(\sum_{x\ne0}\min(k(x),0)\big)\big/\sum_x\max(k(x),0)$ and plot $\rho$ vs. $\bar L$. Then repeat with a *random* phase $\theta(f)$ and confirm that $I$ and $P$ are unchanged while $k(x)$ is unrecognizable. State in one sentence what the second part demonstrates about the epistemic status of "the theory predicts center-surround."
+
+<details markdown="1"><summary>Solution</summary>
+
+Numerical; the qualitative results to look for: (i) at $\bar L=1$ the kernel is a clear Mexican hat with $\rho\approx0.3$–$0.5$; at $\bar L=10^{-2}$ it is a single positive lobe with $\rho\approx0$; (ii) $\rho$ decreases monotonically with $\bar L$ decreasing, and the peak spatial frequency shifts down; (iii) the random-phase kernel has identical $\int|K|^2S$ and identical $\int\log(1+\mathrm{SNR})$, because both functionals depend only on $|K|$, yet looks like noise in space. **Conclusion to state:** the information-theoretic objective predicts the *amplitude spectrum* and nothing else; "center-surround" is produced by the additional, unstated assumption of zero phase, which is justified by locality/wiring arguments external to the theory. Any paper that presents center-surround as a prediction of infomax alone has smuggled in a gauge choice.
+
+</details>
+
+**E3.4 (★★) Histogram equalization is entropy maximization is ICA's nonlinearity.**
+(a) Derive $g=\mathrm{CDF}$ for the single-neuron infomax problem, being explicit about where boundedness of the output is used.
+(b) Show that if the noise is *output-referred with constant variance*, this is right, but if the noise is *input-referred* with constant variance, the optimal $g$ is instead $g'\propto p_s^{1/3}$. (Hint: with input noise $\sigma_s$, output noise entropy depends on $g'$.) Comment on why this matters for interpreting any measured transfer function.
+(c) Connect (a) to the Bell–Sejnowski/ML-ICA equivalence condition $\phi'=p_s$.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Deterministic monotone $g$ on bounded range: $I(y;s)=h(y)-h(y|s)$, and with additive output noise of fixed variance $\sigma_o^2$ independent of $y$, $h(y|s)=\tfrac12\log2\pi e\sigma_o^2$ is constant. Maximize $h(y)$ over densities on $[0,y_{\max}]$: uniform, $h=\log y_{\max}$. Since $y=g(s)$, $p_y(y)=p_s(s)/|g'(s)|$; setting $p_y=1/y_{\max}$ gives $g'=y_{\max}p_s$ and hence $g=y_{\max}\mathrm{CDF}$. Boundedness is what makes "uniform" the max-entropy answer; with an unbounded range and a variance constraint you would get Gaussian output instead, and $g=\Phi^{-1}\circ\mathrm{CDF}$.
 (b) Input-referred noise: $s\to s+\eta$, $\eta\sim\mathcal N(0,\sigma_s^2)$ small, so the output noise standard deviation is $g'(s)\sigma_s$, i.e. *state-dependent*. Then $h(y|s)=\mathbb E_s\log\big(\sqrt{2\pi e}\,g'(s)\sigma_s\big)$, and
 $$I \approx h(y)-\mathbb E_s\log g'(s) - \text{const} = -\!\int p_y\log p_y - \int p_s\log g' .$$
 Substituting $p_y=p_s/g'$ and changing variables, $h(y) = h(s)+\int p_s\log g'$, so $I = h(s)+\int p_s\log g' - \int p_s\log g'$ — *identically constant*. Information alone cannot choose $g$ when noise is purely input-referred (as it should not: an invertible map preserves information). One must add the range constraint properly, e.g. maximize $I$ subject to $\int p_y \,y^2 \le$ const with a fixed output *quantization* step; the standard high-resolution-quantization treatment with a fixed number of output levels and input noise gives the Bennett result $g'\propto p_s^{1/3}$ for MSE. The lesson: **a measured transfer function cannot be interpreted normatively without committing to where the noise is**, and the two natural commitments give $\mathrm{CDF}$ versus $\int p^{1/3}$ — visibly different functions.
 (c) In Bell–Sejnowski the objective is $\log|\det W|+\sum_i\mathbb E\log\phi'(u_i)$. If we regard each output unit as a Laughlin neuron, then $\phi$ maximizes that unit's entropy exactly when $\phi'=p_{u_i}$, i.e. $\phi=\mathrm{CDF}$ of the recovered source. So the ICA nonlinearity is the single-neuron histogram-equalizer, and the ML-ICA equivalence is the statement that "each unit histogram-equalizes its own source" plus "the linear map is volume-corrected" equals "maximize the likelihood of the independent-source model."
 
-**S3.5.** Generative model: $x=As$, $s_i\stackrel{iid}\sim p_s$, $A$ invertible, $W=A^{-1}$, $u=Wx$. Then $p_x(x)=|\det W|\prod_ip_s(u_i)$ and the per-sample log-likelihood is $\ell=\log|\det W|+\sum_i\log p_s(u_i)$; its expectation under the data is $\log|\det W|+\sum_i\mathbb E\log p_s(u_i)$.
+</details>
+
+**E3.5 (★★★) Infomax equals maximum likelihood ICA.**
+Prove the equivalence in full: state the generative model, write the log-likelihood per sample, write the Bell–Sejnowski entropy objective, and show they agree up to an additive constant exactly when $\phi=\int p_s$. Then derive the natural-gradient update $\Delta W\propto(I+\hat y u^{\mathsf T})W$ and show that its fixed points satisfy $\mathbb E[\hat y_iu_j]=-\delta_{ij}$. Interpret this last condition as a set of nonlinear decorrelation constraints and count them against the $n^2$ parameters of $W$.
+
+<details markdown="1"><summary>Solution</summary>
+
+Generative model: $x=As$, $s_i\stackrel{iid}\sim p_s$, $A$ invertible, $W=A^{-1}$, $u=Wx$. Then $p_x(x)=|\det W|\prod_ip_s(u_i)$ and the per-sample log-likelihood is $\ell=\log|\det W|+\sum_i\log p_s(u_i)$; its expectation under the data is $\log|\det W|+\sum_i\mathbb E\log p_s(u_i)$.
 Bell–Sejnowski: $H(y)=H(x)+\mathbb E\log|\det J|$, $J=\operatorname{diag}(\phi'(u))W$, so $H(y)=H(x)+\log|\det W|+\sum_i\mathbb E\log\phi'(u_i)$. Since $H(x)$ is $W$-independent, $\arg\max_W H(y)=\arg\max_W\big[\log|\det W|+\sum_i\mathbb E\log\phi'(u_i)\big]$, which equals the likelihood objective iff $\log\phi'=\log p_s$, i.e. $\phi'=p_s$, $\phi=\mathrm{CDF}$. (Note also the identity $\mathbb E[H(y)] = H(x)-\mathrm{KL}\big[p_u\,\|\,\prod_ip_s\big]+\text{const}$, which shows directly that maximizing output entropy minimizes the KL between the true joint of the recovered signals and the assumed factorial model — infomax is a mutual-information-minimization in disguise, i.e. ICA.)
 Gradient: $\partial_W\log|\det W|=W^{-\mathsf T}$; $\partial_{W_{ij}}\mathbb E\log\phi'(u_i)=\mathbb E[\hat y_ix_j]$ with $\hat y_i=\phi''(u_i)/\phi'(u_i)$. So $\Delta W\propto W^{-\mathsf T}+\hat yx^{\mathsf T}$. Right-multiplying by $W^{\mathsf T}W$ (a positive-definite metric factor, the natural gradient for the group $GL(n)$ with its right-invariant metric) gives $\Delta W\propto W+\hat yx^{\mathsf T}W^{\mathsf T}W = (I+\hat yu^{\mathsf T})W$ using $u=Wx$.
 Fixed points: $\mathbb E[(I+\hat yu^{\mathsf T})]W=0$ and $W$ invertible, so $\mathbb E[\hat y_iu_j]=-\delta_{ij}$. Off-diagonal: $\mathbb E[\hat y_iu_j]=0$ for $i\ne j$ — $n(n-1)$ **nonlinear decorrelation** constraints (note they are not symmetric, so there are $n(n-1)$ of them, not $n(n-1)/2$). Diagonal: $\mathbb E[\hat y_iu_i]=-1$, $n$ scale-fixing constraints. Total $n^2$ constraints for $n^2$ parameters — the system is exactly determined, which is why ICA has isolated solutions (up to permutation and sign) whereas whitening has an $O(n)$ manifold of them. **This is the gauge-fixing statement made quantitative.**
 
-**S3.6.**
+</details>
+
+**E3.6 (★★) Tuning-curve allocation.**
+(a) Derive $J(s)=cTg(s)d(s)^2$ carefully, stating the two places Poisson summation is used and the condition under which the $g'^2/g$ term is negligible.
+(b) Derive $d\propto p^{1/(1+\alpha)}$ for the loss family $L_\alpha=\int p\,\delta^\alpha$, and obtain $d\propto p$ as the $\alpha\to0$ limit by an independent route (maximize $\int p\log J$).
+(c) Now allow the gain to vary as well, with a spike budget $\int p(s)g(s)\,ds = G$ *and* a neuron budget $\int d = N$. Find the jointly optimal $(d,g)$ under the infomax objective and comment on the relative "exchange rate" between neurons and spikes.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) $J(s)=T\sum_n h_n'^2/h_n$; substitute $h_n=g\phi(u_n)$, $u_n=NF(s)-n$, $h_n'=g'\phi+gd\phi'$ (chain rule with $NF'=d$). Poisson summation use #1: $\sum_n\varphi(NF(s)-n)\approx\int\varphi(u)du$ for any $\varphi$ that is smooth on the scale of the unit spacing — valid when the tuning width (in $u$) exceeds 1, i.e. when neighbouring tuning curves overlap. Applying it to $\varphi=\frac{(g'\phi+gd\phi')^2}{g\phi}$ gives the three integrals. Use #2 is the earlier claim $\sum_nh_n\approx g$. The cross term vanishes since $\int\phi'du=[\phi]_{-\infty}^\infty=0$. The $g'^2/g$ term is negligible relative to $gd^2c$ iff $(g'/g)^2\ll c\,d^2$, i.e. the fractional gain change per unit stimulus is small compared with the density — "gain varies slowly compared with tuning-curve spacing."
 (b) $\delta\propto J^{-1/2}\propto d^{-1}$ at fixed $g$. Minimize $\int p\,d^{-\alpha}$ s.t. $\int d=N$: stationarity of $\int(pd^{-\alpha}+\mu d)$ gives $-\alpha p d^{-\alpha-1}+\mu=0$, so $d=(\alpha p/\mu)^{1/(\alpha+1)}\propto p^{1/(1+\alpha)}$, with $\mu$ set by $\int d=N$. Second-order condition holds since $d^{-\alpha}$ is convex in $d$ for $\alpha>0$.
 Independent route for infomax: maximize $\tfrac12\int p\log J = \int p\log d + \text{const}$ s.t. $\int d=N$. Stationarity: $p/d=\mu\Rightarrow d=p/\mu\propto p$, and $\int d=N$ gives $\mu=1/N$, so $d(s)=Np(s)$ exactly. This agrees with the $\alpha\to0^+$ limit of part (b), since $\lim_{\alpha\to0^+}\frac{1}{1+\alpha}=1$ — reassuring, because the two routes are genuinely different arguments (one via Cramér–Rao and a power loss, one via the asymptotic mutual information).
 (c) Infomax with both resources: maximize $\tfrac12\int p\log(cTgd^2)$ s.t. $\int d=N$, $\int pg=G$. Lagrangian $\int p\log g+2\int p\log d-\mu\int d-\nu\int pg$. Vary $d$: $2p/d=\mu\Rightarrow d\propto p$. Vary $g$: $p/g=\nu p\Rightarrow g=1/\nu$, **constant**. So under a spike budget weighted by the prior, the optimal gain is uniform and *all* the allocation happens through density. Exchange rate: $\partial I/\partial N = \mu/2\cdot$, versus $\partial I/\partial G=\nu/2$; using $\mu=2/N$ and $\nu = 1/g = 1/(G)$ (since $\int pg=g=G$), we get $\partial I/\partial\log N = 1$ nat per doubling-ish versus $\partial I/\partial \log G = 1/2$. **Doubling the number of neurons buys twice the information that doubling the spike rate does** — the direct consequence of $J\propto gd^2$. This is a testable prediction about how systems under different metabolic pressures should trade neurons against rates.
 
-**S3.7.**
+</details>
+
+**E3.7 (★★) Divisive normalization as GSM inference.**
+Let $\mathbf L=\sqrt v\,\mathbf u$, $\mathbf u\sim\mathcal N(0,\Sigma)$, $v$ with prior $p(v)$.
+(a) Show $\operatorname{Cov}(\mathbf L)=\mathbb E[v]\Sigma$ but that $L_i$ and $L_j$ are *not* independent even when $\Sigma$ is diagonal, by computing $\operatorname{Cov}(L_i^2,L_j^2)$ and showing it is $\propto \operatorname{Var}(v)$.
+(b) With $\Sigma=I$ and a Jeffreys-like scale prior $p(v)\propto1/v$, compute the posterior mean $\mathbb E[v\,|\,\mathbf L]$ and show that $L_i/\sqrt{\mathbb E[v|\mathbf L]}$ has the form of a divisive normalization with a semi-saturation constant arising from a proper prior.
+(c) Explain why the normalization pool weights $w_{ij}$ should track the strength of statistical dependency between filters $i$ and $j$, and what physiological measurement would test this.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) $\operatorname{Cov}(\mathbf L)=\mathbb E[v]\,\Sigma$ by conditioning. With $\Sigma=I$: $\mathbb E[L_i^2L_j^2]=\mathbb E[v^2]\mathbb E[u_i^2]\mathbb E[u_j^2]=\mathbb E[v^2]$, while $\mathbb E[L_i^2]\mathbb E[L_j^2]=\mathbb E[v]^2$. So $\operatorname{Cov}(L_i^2,L_j^2)=\mathbb E[v^2]-\mathbb E[v]^2=\operatorname{Var}(v)>0$ whenever $v$ is genuinely random. Zero linear correlation ($\mathbb E[L_iL_j]=\mathbb E[v]\mathbb E[u_iu_j]=0$), positive squared correlation: the bowtie.
 (b) With $\Sigma=I$ in $n$ dimensions, $p(\mathbf L|v)=(2\pi v)^{-n/2}e^{-\|\mathbf L\|^2/2v}$. With $p(v)\propto v^{-1}$,
 $$p(v|\mathbf L)\propto v^{-n/2-1}e^{-\|L\|^2/2v},$$
@@ -543,20 +547,46 @@ $$\frac{L_i}{\sqrt{\mathbb E[v|\mathbf L]}}=\frac{L_i\sqrt{n-2}}{\sqrt{\sum_jL_j
 divisive normalization with pool $=$ all filters and no semi-saturation. Replacing the improper $1/v$ prior by e.g. an inverse-gamma prior with scale $\beta$ gives $\mathbb E[v|\mathbf L]=\frac{\|L\|^2+2\beta}{n+2a-2}$, i.e. a **semi-saturation constant $\sigma^2\propto\beta$** in the denominator: the constant in Heeger's equation is the prior's scale parameter. (Strictly, the correct "gaussianizing" statistic uses $\mathbb E[v^{-1/2}|\mathbf L]$ or the posterior mean of $u_i$; the algebra is similar and the form is unchanged.)
 (c) If $\Sigma$ is not the identity, the sufficient statistic for $v$ is $\mathbf L^{\mathsf T}\Sigma^{-1}\mathbf L=\sum_{ij}(\Sigma^{-1})_{ij}L_iL_j$, so the pool weights are the entries of $\Sigma^{-1}$: filter $j$ should enter $i$'s normalization pool in proportion to how informative $L_j$ is about the *local scale* at $i$, which is a measure of statistical dependency. Test: measure, from natural images, the mutual information (or squared-correlation) between the outputs of filter pairs as a function of their difference in orientation, spatial frequency and position; independently measure surround-suppression strength for the same parameter differences in V1; the two profiles should match up to a single scale factor, with no per-pair fitting. That is exactly Schwartz & Simoncelli's test.
 
-**S3.8.**
+</details>
+
+**E3.8 (★★) Sparse coding is a recurrent circuit.**
+(a) Derive the gradient dynamics for $a$ under $E=\|I-\Phi a\|^2+\lambda\sum_i|a_i|$ (use subgradients or the LCA formulation with internal variables $u_i$ and $a_i=T_\lambda(u_i)$), and show explicitly that the lateral connectivity is $-\Phi^{\mathsf T}\Phi$ off-diagonal.
+(b) Show that the network's fixed point satisfies the LASSO optimality conditions $\phi_i^{\mathsf T}(I-\Phi a)=\tfrac{\lambda}{2}\operatorname{sgn}(a_i)$ for $a_i\ne0$ and $|\phi_i^{\mathsf T}(I-\Phi a)|\le\tfrac\lambda2$ otherwise.
+(c) Predict how the measured "receptive field" of unit $i$ (the STA under white noise input) differs from $\phi_i$ when the dictionary is overcomplete and the lateral inhibition is strong. This is a real experimental confound; describe it.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) LCA formulation: internal state $u_i$, output $a_i=T_\lambda(u_i)$ with $T_\lambda$ the soft-threshold $\operatorname{sgn}(u)(|u|-\lambda)^+$. Dynamics
 $$\tau\dot u_i = -u_i + \phi_i^{\mathsf T}I - \sum_{j\ne i}(\phi_i^{\mathsf T}\phi_j)\,a_j,$$
 assuming unit-norm dictionary elements ($\phi_i^{\mathsf T}\phi_i=1$, which is why the leak term is $-u_i$ rather than $-C_{ii}u_i$). Off-diagonal recurrent weights are $-C_{ij}=-\phi_i^{\mathsf T}\phi_j$: the negated Gram matrix, i.e. **inhibition proportional to receptive-field overlap.**
 (b) At a fixed point $u_i=\phi_i^{\mathsf T}I-\sum_{j\ne i}C_{ij}a_j = \phi_i^{\mathsf T}(I-\Phi a)+a_i$. If $a_i\ne0$ then $a_i = u_i-\lambda\operatorname{sgn}(u_i)$ and $\operatorname{sgn}(u_i)=\operatorname{sgn}(a_i)$, so $\phi_i^{\mathsf T}(I-\Phi a)=u_i-a_i=\lambda\operatorname{sgn}(a_i)$. If $a_i=0$ then $|u_i|\le\lambda$ and $u_i=\phi_i^{\mathsf T}(I-\Phi a)$, so $|\phi_i^{\mathsf T}(I-\Phi a)|\le\lambda$. These are exactly the KKT conditions for $\min_a\tfrac12\|I-\Phi a\|^2+\lambda\|a\|_1$ (the factor of 2 differs from the exercise statement depending on whether you write $\|\cdot\|^2$ or $\tfrac12\|\cdot\|^2$; keep it consistent).
 (c) The STA measures the average stimulus preceding a response, which for a competitive network is *not* $\phi_i$. Because unit $i$ only responds when its competitors do not, the measured STA is biased toward stimuli that drive $\phi_i$ *and fail to drive* the correlated neighbours $\phi_j$ — effectively $\propto (\Phi^{\mathsf T}\Phi)^{-1}$-weighted, i.e. a *sharpened, decorrelated* version of $\phi_i$ with negative flanks where the neighbours sit. Consequences for experiments: (i) measured receptive fields will look higher-frequency and more band-pass than the generative basis; (ii) the discrepancy grows with overcompleteness and with stimulus contrast (stronger competition); (iii) an STA measured with low-contrast noise (weak competition) and one measured with high-contrast natural stimuli (strong competition) will disagree — which is one honest mechanistic reading of the well-documented contrast- and context-dependence of V1 receptive fields, and a reason to be careful before calling such changes "adaptation."
 
-**S3.9.**
+</details>
+
+**E3.9 (★★) Compressed sensing arithmetic for noses.**
+(a) Using $M \ge C k\log(N/k)$ with $C=2$, solve for the mixture complexity $k$ recoverable by the fly ($M=50$, $N=10^4$) and the mouse ($M=1000$, $N=10^4$). Plot $k$ vs $M$.
+(b) Real receptor–ligand affinities are non-negative and correlated across receptors, not i.i.d. Gaussian. Explain qualitatively how correlation in $W$ degrades recovery, using the notion of mutual coherence $\mu(W)=\max_{i\neq j}|w_i^{\mathsf T}w_j|/(\|w_i\|\|w_j\|)$ and the guarantee $k<\tfrac12(1+1/\mu)$.
+(c) Numerically: generate $W$ with rows drawn from a lognormal affinity distribution, generate $k$-sparse non-negative $\mathbf c$, add Poisson noise to $\mathbf r=W\mathbf c$, and measure support-recovery accuracy of non-negative $\ell_1$ as a function of $k$ and of the width of the lognormal. Report where the fly's $M=50$ actually lands, as opposed to where the theorem says it should.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) $k$ solves $M=2k\log(N/k)$. Fly, $M=50$, $N=10^4$: try $k=3\Rightarrow 2\cdot3\cdot\log(3333)=6\times8.11=48.7\approx50$. So $k\approx3$. Mouse, $M=1000$: $k=100\Rightarrow200\log(100)=200\times4.6=921$; $k=110\Rightarrow220\log(90.9)=220\times4.51=992$. So $k\approx110$. The scaling is nearly linear in $M$ with a slowly varying log correction, so a 20-fold increase in receptor diversity buys a ~35-fold increase in mixture complexity. Plotting $k(M)$ shows the mild convexity from the $\log(N/k)$ factor.
 (b) Coherence $\mu$ measures worst-case similarity between two receptor "columns" (here, the response profile across receptors of two different odorants). The classical guarantee is that $\ell_1$ (and orthogonal matching pursuit) recover any $k$-sparse signal exactly when $k<\tfrac12(1+1/\mu)$. Random i.i.d. matrices have $\mu\sim\sqrt{2\log N/M}$, which for $M=50,N=10^4$ is $\approx0.61$ — giving $k<1.3$, far worse than the $\log$-based bound, because coherence bounds are worst-case. Non-negative, correlated affinities push $\mu$ toward 1 (all columns positively aligned because all odorants excite overlapping receptor sets), collapsing the guarantee. **This is precisely why "disorder" — broad, heterogeneous, near-independent affinity distributions — is functionally important**: it is the biological knob that lowers coherence. Non-negativity partially rescues the situation, since for non-negative $\mathbf c$ and $W$ with a strictly positive row in its null-space complement, the feasible set $\{c\ge0: Wc=r\}$ can be a single point even without an explicit $\ell_1$ penalty.
 (c) Numerical. Expected findings: lognormal (broad) affinity distributions substantially outperform narrow ones at fixed $M$, in line with Zwicker et al.; Poisson noise at realistic glomerular spike counts degrades $k$ by roughly a factor of 2 relative to the noiseless bound; and $M=50$ empirically supports reliable support recovery for $k\approx2$–$4$, i.e. the theorem's estimate is roughly right for the wrong reasons (the constants and the noise term nearly cancel).
 
-**S3.10.** A model answer, not the only one.
+</details>
+
+**E3.10 (★★★, open-ended, research taste) Falsifying an efficient-coding claim in the locust antennal lobe.**
+The claim on the table: *"The projection-neuron transformation in the locust antennal lobe implements redundancy reduction on the natural ensemble of odor plumes, subject to a spike budget."*
+Design an experimental and analytical program that could **falsify** it. Your answer must specify (i) what you would measure to estimate the "natural ensemble" — and confront the fact that this is much harder than photographing a forest; (ii) which of the four free choices (objective / constraint / ensemble / noise) you would fix independently rather than fit; (iii) at least one *relation* the theory predicts that could come out wrong, in the style of Atick–Redlich's light-level prediction; (iv) a plausible outcome that would be consistent with the claim but that you would nevertheless refuse to count as confirmation, and why. Half a page. There is no single right answer; there are many wrong ones.
+
+<details markdown="1"><summary>Solution</summary>
+
+A model answer, not the only one.
 (i) *Ensemble.* You cannot photograph an odor. Estimate the natural ensemble in two independent pieces: (a) the *chemical* marginal — GC-MS of headspace from the animal's actual food/host plants and conspecifics, yielding an empirical distribution over mixture composition and relative concentration, which gives you sparsity level $k$ and the affinity-space covariance when combined with a receptor-response panel; (b) the *temporal* marginal — photoionization-detector recordings of plumes in the field or in a wind tunnel matched to field turbulence, giving the intermittency statistics, blank-duration distribution, and concentration-fluctuation spectrum. Crucially, (b) is measurable to high precision and is the part where the theory has real teeth, because plume statistics can be *manipulated* (change wind speed, source distance, turbulence intensity) while chemistry is held fixed.
 (ii) *Fix independently.* Fix the **noise model** (measure PN and ORN trial-to-trial variability directly; do not fit it) and the **ensemble** (measured as above). Fix the **constraint** by measuring the actual spike budget and its metabolic cost. Leave only the **objective** free — and then you are doing a model-comparison over a small discrete set (decorrelation / infomax / sparseness / predictive) rather than fitting a continuum, which is the only version of this exercise with any statistical power. Report the comparison with the calibration machinery of Młynarski et al.
 (iii) *A relation that could fail.* The Atick–Redlich analogue: **change the SNR and the optimal filter must change in a specified direction.** Concretely, at low odor concentration (photon-noise analogue: ORN spike counts are small, so SNR is low), redundancy reduction should be *reduced* — lateral inhibition between glomeruli should weaken, PN responses should become more correlated and less sparse, exactly as the retinal surround weakens in the dark. Quantitatively: measure the PN–PN correlation matrix and the lateral-inhibition strength (via optogenetic or pharmacological perturbation of LN output) across a 3-log-unit concentration range, and check whether the concentration at which decorrelation collapses matches the concentration at which ORN SNR crosses the theory's threshold $\Theta$, with $\Theta$ computed from the independently measured noise and cost. If decorrelation is concentration-independent, or if it collapses at the wrong concentration by an order of magnitude, the claim is dead. A second, harder relation: rear locusts on a restricted odor diet (or in a wind tunnel with artificially altered plume statistics) and predict the resulting change in the AL transformation with no refitting.
 (iv) *An outcome I would refuse to count.* "PN responses are less correlated than ORN responses." This is nearly guaranteed by any expansive, thresholding, normalizing transformation whatsoever, including many that optimize nothing at all — a random projection followed by a nonlinearity decorrelates. It has essentially zero likelihood ratio between the efficient-coding hypothesis and its alternatives, so observing it changes my posterior by nothing. The general principle: **a confirmation is worthless if you cannot name a mechanism-agnostic null that also produces it.** Before running any efficient-coding test, write down the "unprincipled" model — random weights, generic normalization, biophysical saturation — and check that it predicts something different. Most published confirmations of efficient coding do not survive this step.
+
+</details>

@@ -94,6 +94,11 @@ Sensory coding is weighted heavily, but the point of the breadth is comparative:
 See [`structures/README.md`](structures/README.md) for the full index and the methodology of
 recognizing new mathematical objects in the wild.
 
+### Companion code
+
+[`notebooks/`](notebooks/README.md) — three runnable models (C1, C2, C4) with plots, parameter
+sweeps, and null models. numpy + matplotlib only.
+
 ---
 
 ## A suggested 26-week pace
@@ -134,14 +139,14 @@ structures thread. That is the spine.
 ★★★ problems are where the course actually happens — several of them are live research
 questions that I believe are unpublished, and they are marked as such.
 
-Two solution formats, deliberately. The Foundations units list all exercises together and give
-the solutions in a section below, so you can work a whole set before checking anything. Case
-studies and structures notes put each solution in a collapsible block directly under its
-exercise, because there you are usually reading for one specific technique.
+Solutions sit in collapsible blocks directly beneath each exercise, so the page reads as a
+problem set until you choose otherwise. There are 58 exercises in Foundations alone, and roughly
+150 across the course.
 
 **Run the code.** Each case study contains a small numpy model, deliberately small enough to
 read in one sitting and modify in an afternoon. A model you have perturbed is worth ten you
-have read about.
+have read about. Three of them are expanded into [notebooks](notebooks/README.md) with plots
+and null models.
 
 **Keep a conversion log.** For every case study, write one page: (1) the level-1 problem
 statement, (2) the algorithm as a mathematical object, (3) the mapping to circuit elements,

@@ -552,37 +552,20 @@ Cross-reference [`../structures/README.md`](../structures/README.md).
 ---
 
 ## Exercises
-
 **E1 (★) — Exact norm control.** Show that Oja's rule satisfies $\frac{d}{dt}\|\mathbf w\|^2 = 2\eta y^2(1-\|\mathbf w\|^2)$ *without* averaging over the input distribution. What does this imply about the rule's robustness to non-stationary input? Then find the fixed-point norm of the modified rule $\dot{\mathbf w}=\eta y(\mathbf x - \gamma y\mathbf w)$ and interpret $\gamma$.
 
-**E2 (★★) — Stability of Oja's fixed points.** Compute the Jacobian of the averaged Oja flow at $\mathbf w=\mathbf e_i$ and show that its eigenvalues are $\{-2\lambda_i\}\cup\{\lambda_j-\lambda_i\}_{j\ne i}$. Deduce that only $\pm\mathbf e_1$ is stable, and that the index of the saddle at $\mathbf e_i$ is $i-1$. What is the convergence rate to $\mathbf e_1$, and what happens when $\lambda_1=\lambda_2$?
+<details markdown="1"><summary>Solution</summary>
 
-**E3 (★★) — Sanger by deflation.** For $k=2$, assume neuron 1 has converged to $\mathbf w_1=\mathbf e_1$. Write out neuron 2's Sanger update and show that it is exactly Oja's rule driven by the deflated input $\tilde{\mathbf x} = \mathbf x - (\mathbf e_1^{\mathsf T}\mathbf x)\mathbf e_1$, whose covariance is $C-\lambda_1\mathbf e_1\mathbf e_1^{\mathsf T}$. Then explain, in one paragraph, precisely which anatomical assumption the $\sum_{k\le i}$ makes, and why §4's circuit does not need it.
-
-**E4 (★★) — Földiák's fixed point and the gauge.** With $\mathbf y = (I-W)^{-1}Q\mathbf x$, $\mathrm{diag}(W)=0$ and $\Delta W_{il}\propto -y_iy_l$: (a) show that the fixed point requires $C_y$ diagonal; (b) suppose in addition that $Q$ is fixed at $I$ and that a homeostatic mechanism forces $\mathrm{Var}(y_i)=1$. Show $C_y=I$ and solve for $M=I-W$ in terms of $C$. (c) If you additionally require $W$ symmetric, which square root of $C^{-1}$ do you get, and what does that predict about the shape of the resulting filters compared to the PCA solution?
-
-**E5 (★★★) — Similarity matching, end to end.** (a) Verify both Legendre identities in §4.2, including that one is a min and the other a max. (b) Derive the neural dynamics and the two plasticity rules. (c) Verify the fixed-point condition $F=(FCF^{\mathsf T})^{-1}FC$ and show its solution set is $\{OU_k^{\mathsf T}: O\in O(k)\}$. (d) *Numerical:* implement the online algorithm in numpy for $n=20$, $k=3$, with $C$ having a $1/i$ eigenvalue spectrum. Plot the principal angle between $\mathrm{range}(W^{\mathsf T})$ and $\mathrm{range}(U_3)$ versus iteration, for $\tau_M\in\{0.1,1,10\}$. What goes wrong when $M$ learns too slowly, and why does the min–max structure predict it?
-
-**E6 (★★) — Feedback alignment as a descent condition.** (a) Derive $\dot L = -\eta\|\mathbf x\|^2\mathbf e^{\mathsf T}W_2B\mathbf e$ for the two-layer linear network and state the exact condition for descent. (b) Construct an explicit $B$ and initial $W_2$ for which FA *increases* the loss on the first step. (c) *Numerical:* train a $10\to20\to10$ linear network on a random teacher with (i) backprop, (ii) FA. Plot the angle $\angle(\Delta W_1^{\text{FA}}, \Delta W_1^{\text{BP}})$ and the angle $\angle(W_2, B^{\mathsf T})$ versus iteration. Do they track each other?
-
-**E7 (★★) — Equilibrium propagation.** Prove the EP theorem from the envelope theorem and the symmetry of second derivatives, stating the regularity conditions you need (in particular: what must be true of $\mathbf s^\beta_\ast(\theta)$?). Then: for the Hopfield energy given in §6.4, write the explicit two-phase update, and identify what physical quantity the synapse must store between phases and for how long.
-
-**E8 (★★) — STDP from a point process.** For a GLM neuron with $\rho = \exp(u)$, compute $\partial\log L/\partial w_j$ and show that the resulting learning window for a single pre-spike at $t_{\text{pre}}$ and single post-spike at $t_{\text{post}}$ is $\varepsilon(t_{\text{post}}-t_{\text{pre}})$ minus a term proportional to $\int\rho\,\varepsilon$. Sketch the window. Which arm of the empirical STDP curve does this fail to produce, and name two distinct additional ingredients that produce it.
-
-**E9 (★★) — Kenyon-cell capacity.** Model $P$ random binary KC codes of length $N$ with exactly $s$ active units. (a) Compute mean and variance of the overlap $\mathbf k^{(a)\mathsf T}\mathbf k^{(b)}$. (b) A single MBON learns by depressing active synapses: $\mathbf w\mapsto\mathbf w - \eta\mathbf k^{(a)}$ for each punished odor. Derive the signal-to-noise ratio for discriminating a learned from an unlearned odor after $P$ memories, as a function of $N$, $s$, $P$. (c) Maximize over the coding level $\alpha=s/N$ at fixed $N$, holding the readout's spike-count budget fixed. (d) *Numerical:* simulate for $N=2000$ and confirm your scaling. Compare the optimum to the measured $\alpha\approx0.05$.
-
-**E10 (★★★) — Open-ended.** The antennal lobe has feedforward excitation from ORNs to PNs and dense lateral inhibition from local interneurons. Suppose someone claims it is running online whitening via a Hebbian/anti-Hebbian similarity-matching algorithm. (a) Write down the three most specific quantitative predictions this makes that a hard-wired (non-plastic) normalization circuit does *not* make. (b) Design the experiment. You may rear flies in arbitrary odor environments and record from PNs. What exactly would you measure, and what result would falsify the claim? (c) The hardest part: distinguish "the lateral weights adapt to the odor environment" from "the lateral weights are fixed but the gain adapts." Both produce a decorrelated output. What breaks the tie?
-
----
-
-## Solutions
-
-### S1
 Directly: $\frac{d}{dt}\|\mathbf w\|^2 = 2\mathbf w^{\mathsf T}\dot{\mathbf w} = 2\eta y(\mathbf w^{\mathsf T}\mathbf x - y\|\mathbf w\|^2)$. Since $\mathbf w^{\mathsf T}\mathbf x = y$ identically, this is $2\eta y^2(1-\|\mathbf w\|^2)$. No expectation was taken: the identity holds sample by sample. Consequently the unit sphere attracts for *any* input sequence with $y\ne0$; the norm dynamics are decoupled from the input statistics entirely. This is a strong robustness property — non-stationary input can move the *direction* around (indeed it should, that's the point of online learning) but can never cause weight blow-up or collapse. Contrast with a rule whose stabilization depends on a stationary $C$: that rule silently fails during a distribution shift.
 
 For $\dot{\mathbf w}=\eta y(\mathbf x-\gamma y\mathbf w)$: $\frac{d}{dt}\|\mathbf w\|^2 = 2\eta y^2(1-\gamma\|\mathbf w\|^2)$, so $\|\mathbf w\|\to\gamma^{-1/2}$. Thus $\gamma$ sets the operating norm, hence the output gain: $y = \mathbf w^{\mathsf T}\mathbf x$ with $\|\mathbf w\|=\gamma^{-1/2}$. Biologically $\gamma$ is a homeostatic set-point — the strength of the heterosynaptic depression relative to the potentiation — and it controls output dynamic range without affecting *which* direction is learned.
 
-### S2
+</details>
+
+**E2 (★★) — Stability of Oja's fixed points.** Compute the Jacobian of the averaged Oja flow at $\mathbf w=\mathbf e_i$ and show that its eigenvalues are $\{-2\lambda_i\}\cup\{\lambda_j-\lambda_i\}_{j\ne i}$. Deduce that only $\pm\mathbf e_1$ is stable, and that the index of the saddle at $\mathbf e_i$ is $i-1$. What is the convergence rate to $\mathbf e_1$, and what happens when $\lambda_1=\lambda_2$?
+
+<details markdown="1"><summary>Solution</summary>
+
 $f(\mathbf w)=C\mathbf w-(\mathbf w^{\mathsf T}C\mathbf w)\mathbf w$. Using $\partial_{\mathbf w}(\mathbf w^{\mathsf T}C\mathbf w) = 2C\mathbf w$ and the product rule,
 $$Df = C - (\mathbf w^{\mathsf T}C\mathbf w)I - 2\,\mathbf w(C\mathbf w)^{\mathsf T}.$$
 At $\mathbf w=\mathbf e_i$: $\mathbf w^{\mathsf T}C\mathbf w=\lambda_i$ and $C\mathbf e_i=\lambda_i\mathbf e_i$, so $J_i = C-\lambda_iI-2\lambda_i\mathbf e_i\mathbf e_i^{\mathsf T}$. The eigenbasis of $C$ diagonalizes $J_i$: for $j\ne i$, $J_i\mathbf e_j=(\lambda_j-\lambda_i)\mathbf e_j$; for $j=i$, $J_i\mathbf e_i=-2\lambda_i\mathbf e_i$.
@@ -591,7 +574,12 @@ Stability requires all eigenvalues negative. $-2\lambda_i<0$ always (for $\lambd
 
 If $\lambda_1=\lambda_2$ the corresponding eigenvalue of $J_1$ is zero: the flow has a degenerate direction and the linearization is inconclusive. In fact the whole circle in $\mathrm{span}(\mathbf e_1,\mathbf e_2)$ becomes a manifold of fixed points, neutrally stable, and the stochastic recursion performs a random walk (diffusion) around it with no restoring force. Practically: with a small eigengap, PCA is not identifiable and the weight vector will wander. This is not a defect of the rule; it is a property of the problem.
 
-### S3
+</details>
+
+**E3 (★★) — Sanger by deflation.** For $k=2$, assume neuron 1 has converged to $\mathbf w_1=\mathbf e_1$. Write out neuron 2's Sanger update and show that it is exactly Oja's rule driven by the deflated input $\tilde{\mathbf x} = \mathbf x - (\mathbf e_1^{\mathsf T}\mathbf x)\mathbf e_1$, whose covariance is $C-\lambda_1\mathbf e_1\mathbf e_1^{\mathsf T}$. Then explain, in one paragraph, precisely which anatomical assumption the $\sum_{k\le i}$ makes, and why §4's circuit does not need it.
+
+<details markdown="1"><summary>Solution</summary>
+
 Sanger for $i=2$: $\Delta w_{2j}=\eta y_2(x_j - y_1w_{1j} - y_2w_{2j})$. With $\mathbf w_1=\mathbf e_1$ we have $y_1 = \mathbf e_1^{\mathsf T}\mathbf x$, so $x_j - y_1w_{1j} = \tilde x_j$ where $\tilde{\mathbf x}=\mathbf x - (\mathbf e_1^{\mathsf T}\mathbf x)\mathbf e_1 = (I-\mathbf e_1\mathbf e_1^{\mathsf T})\mathbf x$. Also $y_2=\mathbf w_2^{\mathsf T}\mathbf x = \mathbf w_2^{\mathsf T}\tilde{\mathbf x}$ once $\mathbf w_2\perp\mathbf e_1$ (which the flow enforces; check: the $\mathbf e_1$-component of $\Delta\mathbf w_2$ is $\eta y_2(\tilde x_1 - y_2 w_{21}) = -\eta y_2^2w_{21}$, which decays). Hence
 
 $$\Delta\mathbf w_2 = \eta\,y_2(\tilde{\mathbf x}-y_2\mathbf w_2),$$
@@ -600,14 +588,24 @@ Oja's rule on $\tilde{\mathbf x}$. Its covariance is $(I-\mathbf e_1\mathbf e_1^
 
 The anatomical assumption: the term $\sum_{k\le i}y_kw_{kj}$ requires the synapse $(i,j)$ to have access to the *activities and weights of all lower-indexed neurons*, and to know its own index in a global ordering. That is two nonlocal requirements: a directional lateral network with a hard-wired topological order, and — worse — the presence of $w_{kj}$, another neuron's synaptic weight, inside neuron $i$'s update. §4's circuit needs neither, because the lateral variable $M_{il}$ is itself a synapse that learns its own value from $y_iy_l$; the symmetry of $M$ means the network is unordered, and the residual $O(k)$ gauge is simply not fixed — which is fine, because the *subspace* is the algorithmically meaningful object.
 
-### S4
+</details>
+
+**E4 (★★) — Földiák's fixed point and the gauge.** With $\mathbf y = (I-W)^{-1}Q\mathbf x$, $\mathrm{diag}(W)=0$ and $\Delta W_{il}\propto -y_iy_l$: (a) show that the fixed point requires $C_y$ diagonal; (b) suppose in addition that $Q$ is fixed at $I$ and that a homeostatic mechanism forces $\mathrm{Var}(y_i)=1$. Show $C_y=I$ and solve for $M=I-W$ in terms of $C$. (c) If you additionally require $W$ symmetric, which square root of $C^{-1}$ do you get, and what does that predict about the shape of the resulting filters compared to the PCA solution?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Averaging $\Delta W_{il}\propto -y_iy_l$ over the input, the flow stops iff $\mathbb E[y_iy_l]=(C_y)_{il}=0$ for all $i\ne l$. Since only off-diagonals are plastic ($\mathrm{diag}(W)=0$), the diagonal is untouched: the fixed point is exactly "output covariance diagonal." (Stability: perturbing $W_{il}$ upward increases inhibition between $i$ and $l$, reducing $\mathbb E[y_iy_l]$ — negative feedback, so it is stable, given $M$ stays invertible.)
 
 (b) With $Q=I$, $\mathbf y=M^{-1}\mathbf x$ and $C_y=M^{-1}CM^{-\mathsf T}$. Requiring $C_y=I$ gives $C=MM^{\mathsf T}$: $M$ is *a* square root of the input covariance, and $M^{-1}$ is a whitening matrix. The rule constrains $M$ only through $MM^{\mathsf T}=C$, which as expected leaves an $O(n)$ gauge: $M\mapsto MO$.
 
 (c) The constraint $\mathrm{diag}(M)=1$ plus symmetry ($W$ symmetric $\Rightarrow M$ symmetric) picks the *symmetric* solution $M=C^{1/2}$ (up to the diagonal-scaling bookkeeping that the homeostatic mechanism absorbs), so $M^{-1}=C^{-1/2}$: ZCA whitening. ZCA is the whitening transform closest to the identity in Frobenius norm, $\arg\min_{W:\,WCW^{\mathsf T}=I}\|W-I\|_F$. Consequence: its filters are *spatially localized* and center-surround-like, because the symmetric root of a translation-invariant kernel is itself translation-invariant and compact — whereas the PCA solution $M^{-1}=\Lambda^{-1/2}U^{\mathsf T}$ produces global, oscillatory, Fourier-like filters. Same algorithm (whitening), same second-order objective, wildly different receptive fields. If you measure the receptive fields you learn the gauge, not the objective — the point of Unit 03, now recovered from a plasticity rule.
 
-### S5
+</details>
+
+**E5 (★★★) — Similarity matching, end to end.** (a) Verify both Legendre identities in §4.2, including that one is a min and the other a max. (b) Derive the neural dynamics and the two plasticity rules. (c) Verify the fixed-point condition $F=(FCF^{\mathsf T})^{-1}FC$ and show its solution set is $\{OU_k^{\mathsf T}: O\in O(k)\}$. (d) *Numerical:* implement the online algorithm in numpy for $n=20$, $k=3$, with $C$ having a $1/i$ eigenvalue spectrum. Plot the principal angle between $\mathrm{range}(W^{\mathsf T})$ and $\mathrm{range}(U_3)$ versus iteration, for $\tau_M\in\{0.1,1,10\}$. What goes wrong when $M$ learns too slowly, and why does the min–max structure predict it?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) *Cross term.* $h(W) = -\tfrac4T\operatorname{Tr}(WXY^{\mathsf T}) + 2\operatorname{Tr}(W^{\mathsf T}W)$ is strictly convex ($\nabla^2 = 4I\succ0$ on the vectorization), so its stationary point is the global min. $\nabla_W h = -\tfrac4T YX^{\mathsf T}+4W = 0\Rightarrow W^\star=\tfrac1T YX^{\mathsf T}$. Then $\operatorname{Tr}(W^\star XY^{\mathsf T}) = \tfrac1T\operatorname{Tr}(YX^{\mathsf T}XY^{\mathsf T})$ and $\operatorname{Tr}(W^{\star\mathsf T}W^\star) = \tfrac1{T^2}\operatorname{Tr}(YX^{\mathsf T}XY^{\mathsf T})$, giving $h(W^\star) = -\tfrac4{T^2}\Xi+\tfrac2{T^2}\Xi = -\tfrac2{T^2}\Xi$ with $\Xi=\operatorname{Tr}(YX^{\mathsf T}XY^{\mathsf T})$. ✓
 
 *Quartic term.* $q(M)=\tfrac2T\operatorname{Tr}(MYY^{\mathsf T})-\operatorname{Tr}(M^{\mathsf T}M)$ is strictly concave, so stationarity gives the global max: $M^\star=\tfrac1TYY^{\mathsf T}$, $q(M^\star)=\tfrac2{T^2}\Theta-\tfrac1{T^2}\Theta = \tfrac1{T^2}\Theta$ with $\Theta=\operatorname{Tr}(YY^{\mathsf T}YY^{\mathsf T})$. ✓ The sign difference (min vs max) is exactly why one rule is Hebbian and the other anti-Hebbian.
@@ -620,7 +618,12 @@ The anatomical assumption: the term $\sum_{k\le i}y_kw_{kj}$ requires the synaps
 
 Expected behaviour. With $\tau_M\ll1$ (fast $M$) the algorithm converges cleanly: $M$ tracks $\mathbb E[\mathbf y\mathbf y^{\mathsf T}]$ so the inner max is always solved, and the outer min in $W$ sees a well-behaved landscape. With $\tau_M\gg1$ (slow $M$) the dynamics can oscillate or diverge. The reason is structural, and worth stating carefully: this is a **min–max (saddle-point) problem**, and simultaneous gradient descent–ascent on a saddle is only guaranteed to converge when the ascent variable is fast enough to stay near its optimum — the standard two-timescale condition. If $M$ lags, $W$ descends a landscape whose curvature is wrong, and the trajectory spirals. This is the same phenomenon as instability in GAN training, and it makes a biological prediction: **lateral synapses should be faster than feedforward ones.** Notably, if $M$ becomes ill-conditioned the network dynamics $\tau\dot{\mathbf y}=W\mathbf x-M\mathbf y$ also slow down (its slowest mode is $\tau/\lambda_{\min}(M)$), so the failure is visible as a runaway network time constant, not just as a bad weight vector.
 
-### S6
+</details>
+
+**E6 (★★) — Feedback alignment as a descent condition.** (a) Derive $\dot L = -\eta\|\mathbf x\|^2\mathbf e^{\mathsf T}W_2B\mathbf e$ for the two-layer linear network and state the exact condition for descent. (b) Construct an explicit $B$ and initial $W_2$ for which FA *increases* the loss on the first step. (c) *Numerical:* train a $10\to20\to10$ linear network on a random teacher with (i) backprop, (ii) FA. Plot the angle $\angle(\Delta W_1^{\text{FA}}, \Delta W_1^{\text{BP}})$ and the angle $\angle(W_2, B^{\mathsf T})$ versus iteration. Do they track each other?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) $\mathbf e = \mathbf y^\ast - W_2W_1\mathbf x$. Freezing $W_2$ and updating $W_1$ by $\dot W_1=\eta B\mathbf e\mathbf x^{\mathsf T}$:
 $$\dot{\mathbf e} = -W_2\dot W_1\mathbf x = -\eta W_2B\mathbf e\,\mathbf x^{\mathsf T}\mathbf x = -\eta\|\mathbf x\|^2W_2B\mathbf e,$$
 $$\dot L = \mathbf e^{\mathsf T}\dot{\mathbf e} = -\eta\|\mathbf x\|^2\,\mathbf e^{\mathsf T}W_2B\mathbf e = -\eta\|\mathbf x\|^2\,\mathbf e^{\mathsf T}\,\mathrm{Sym}(W_2B)\,\mathbf e,$$
@@ -630,7 +633,12 @@ using $\mathbf e^{\mathsf T}A\mathbf e = \mathbf e^{\mathsf T}\mathrm{Sym}(A)\ma
 
 (c) You should see: the $W_2$–$B^{\mathsf T}$ angle decreasing from $\approx90^\circ$ toward $\approx0$–$60^\circ$ over the first few hundred steps, with the update angle $\angle(\Delta W_1^{\text{FA}},\Delta W_1^{\text{BP}})$ dropping below $90^\circ$ in lockstep and slightly *leading* it. The causal story is that alignment of the weights *causes* alignment of the updates: $\Delta W_1^{\text{BP}}\propto W_2^{\mathsf T}\mathbf e\mathbf x^{\mathsf T}$ and $\Delta W_1^{\text{FA}}\propto B\mathbf e\mathbf x^{\mathsf T}$, so their angle is controlled by $\angle(W_2^{\mathsf T}\mathbf e, B\mathbf e)$. If you rescale $B\mapsto cB$ for large $c$, alignment happens faster (bigger $W_1$ steps into $\mathrm{range}(B)$) but the network becomes unstable — a real tradeoff, and a reason FA is finicky.
 
-### S7
+</details>
+
+**E7 (★★) — Equilibrium propagation.** Prove the EP theorem from the envelope theorem and the symmetry of second derivatives, stating the regularity conditions you need (in particular: what must be true of $\mathbf s^\beta_\ast(\theta)$?). Then: for the Hopfield energy given in §6.4, write the explicit two-phase update, and identify what physical quantity the synapse must store between phases and for how long.
+
+<details markdown="1"><summary>Solution</summary>
+
 Regularity: assume $\mathbf s^\beta_\ast(\theta)$ is a strict local minimum of $F(\theta,\beta,\cdot)$ that varies smoothly in $(\theta,\beta)$ — guaranteed by the implicit function theorem if $\partial^2_{\mathbf s}F$ is nonsingular (positive definite) at the fixed point. Also $E$ and $C$ must be $C^2$.
 
 Define $F^\ast(\theta,\beta)=F(\theta,\beta,\mathbf s^\beta_\ast(\theta))$. Then
@@ -643,7 +651,12 @@ Two-phase update for the Hopfield energy: (i) relax with $\beta=0$ to $\mathbf s
 
 What must be stored: each *neuron* (not each synapse) must retain $\rho(s_i^0)$ across the nudged phase — a single scalar per neuron, held for the duration of the second relaxation. That is much cheaper than storing an activation *history*, and it is the strongest argument in EP's favour. But it is not free: it requires a neuron-local memory whose time constant exceeds the settling time of the network and which is *not* corrupted by the neuron's own activity during phase (ii) — which is a nontrivial biophysical demand (a slow calcium or dendritic variable, say). And the sign structure requires the network to know which phase it is in, i.e. a global phase signal. Also note the $1/\beta$: as $\beta\to0$ the difference shrinks toward the noise floor, so there is a hard tradeoff between bias (large $\beta$) and variance (small $\beta$).
 
-### S8
+</details>
+
+**E8 (★★) — STDP from a point process.** For a GLM neuron with $\rho = \exp(u)$, compute $\partial\log L/\partial w_j$ and show that the resulting learning window for a single pre-spike at $t_{\text{pre}}$ and single post-spike at $t_{\text{post}}$ is $\varepsilon(t_{\text{post}}-t_{\text{pre}})$ minus a term proportional to $\int\rho\,\varepsilon$. Sketch the window. Which arm of the empirical STDP curve does this fail to produce, and name two distinct additional ingredients that produce it.
+
+<details markdown="1"><summary>Solution</summary>
+
 With $\rho=\exp(u)$, $g'/g = 1$, so
 $$\frac{\partial\log L}{\partial w_j} = \int\big[S(t)-\rho(t)\big]\varepsilon_j(t)\,dt,\qquad \varepsilon_j(t)=\sum_f\varepsilon(t-t_j^f).$$
 For one pre-spike at $t_{\text{pre}}$ and one post-spike at $t_{\text{post}}$: the first term contributes $\varepsilon(t_{\text{post}}-t_{\text{pre}})$, which is zero for $t_{\text{post}}<t_{\text{pre}}$ (causality of the EPSP kernel) and rises then decays with the EPSP time course for $t_{\text{post}}>t_{\text{pre}}$. The second term contributes $-\int\rho(t)\varepsilon(t-t_{\text{pre}})dt$, which is negative, roughly independent of $t_{\text{post}}$, and proportional to the neuron's expected activity — a uniform depression that grows with mean firing rate.
@@ -655,7 +668,12 @@ Sketch: zero for $\Delta t<0$; a sharp rise to a positive peak at $\Delta t\appr
 
 The moral: the LTP arm of STDP is *forced* by any likelihood-based account (it is the EPSP kernel), while the LTD arm is *not* — it is where the objective's constraints show up. Empirically, the LTD arm is also the more variable across synapse types, which is consistent.
 
-### S9
+</details>
+
+**E9 (★★) — Kenyon-cell capacity.** Model $P$ random binary KC codes of length $N$ with exactly $s$ active units. (a) Compute mean and variance of the overlap $\mathbf k^{(a)\mathsf T}\mathbf k^{(b)}$. (b) A single MBON learns by depressing active synapses: $\mathbf w\mapsto\mathbf w - \eta\mathbf k^{(a)}$ for each punished odor. Derive the signal-to-noise ratio for discriminating a learned from an unlearned odor after $P$ memories, as a function of $N$, $s$, $P$. (c) Maximize over the coding level $\alpha=s/N$ at fixed $N$, holding the readout's spike-count budget fixed. (d) *Numerical:* simulate for $N=2000$ and confirm your scaling. Compare the optimum to the measured $\alpha\approx0.05$.
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Let $\mathbf k^{(a)},\mathbf k^{(b)}$ be independent uniform $s$-subsets of $[N]$, $\alpha=s/N$. Overlap $O=\sum_i k_i^{(a)}k_i^{(b)}$ is hypergeometric: $\mathbb E[O]=s^2/N=N\alpha^2$, and $\operatorname{Var}(O)=s\frac{s}{N}\frac{N-s}{N}\frac{N-s}{N-1}\approx N\alpha^2(1-\alpha)^2$. For $\alpha\ll1$, $\mathbb E[O]\approx\operatorname{Var}(O)\approx N\alpha^2$ (Poisson-like).
 
 (b) After learning $P$ odors, $\mathbf w = \mathbf w_0-\eta\sum_{a=1}^P\mathbf k^{(a)}$. For a learned odor $\mathbf k^{(1)}$:
@@ -673,7 +691,12 @@ Any of these makes the optimum interior, and the classic result (see Litwin-Kuma
 
 (d) Simulation: generate $P$ random $s$-hot vectors, apply the depression rule, and estimate $d' = (\mathbb E[m_0]-\mathbb E[m_1])/\sqrt{\tfrac12(\sigma_0^2+\sigma_1^2)}$ over many draws. You should recover $d'\propto\sqrt{N/P}$ across two decades of $P$, and confirm the $\alpha$-independence in the noiseless idealization — then watch the interior optimum appear as soon as you add dropout.
 
-### S10
+</details>
+
+**E10 (★★★) — Open-ended.** The antennal lobe has feedforward excitation from ORNs to PNs and dense lateral inhibition from local interneurons. Suppose someone claims it is running online whitening via a Hebbian/anti-Hebbian similarity-matching algorithm. (a) Write down the three most specific quantitative predictions this makes that a hard-wired (non-plastic) normalization circuit does *not* make. (b) Design the experiment. You may rear flies in arbitrary odor environments and record from PNs. What exactly would you measure, and what result would falsify the claim? (c) The hardest part: distinguish "the lateral weights adapt to the odor environment" from "the lateral weights are fixed but the gain adapts." Both produce a decorrelated output. What breaks the tie?
+
+<details markdown="1"><summary>Solution</summary>
+
 (a) Three predictions that separate plasticity from hard wiring:
 1. **Environment dependence of the lateral weight matrix.** Rear flies in an environment whose odor statistics have a specific, imposed correlation structure $C_{\text{env}}$. A similarity-matching circuit predicts the lateral weights converge to $M\propto \mathbb E[\mathbf y\mathbf y^{\mathsf T}]$ *for that environment*, so the PN→PN effective interaction should be predictable from $C_{\text{env}}$ — quantitatively, and with the specific functional form $M = (\text{whitening or PCA solution for } C_{\text{env}})$. A hard-wired circuit predicts no dependence.
 2. **Decorrelation transfers, but only within the trained subspace.** If the circuit has learned $M$ for $C_{\text{env}}$, then novel odors that lie in directions poorly represented in $C_{\text{env}}$ should be *under*-decorrelated: the residual output correlation should be predictable from the mismatch between the test stimulus covariance and the training covariance. Hard wiring predicts a fixed decorrelation performance independent of rearing.
@@ -687,3 +710,5 @@ Any of these makes the optimum interior, and the classic result (see Litwin-Kuma
 3. **Exploit the timescale mismatch.** Divisive normalization is fast (tens of ms, stimulus-locked); synaptic learning is slow (hours–days). Present a novel correlation structure and look for a slow drift *after* the fast normalization has settled. If the decorrelation improves over hours with the environment held fixed, gain adaptation cannot explain it.
 
 A fourth, more speculative move worth stating because it is the sort of thing this course is for: a learned-$W$ circuit and a gain circuit have different *failure modes under lesion*. Silencing a subset of local interneurons in a learned-$W$ circuit should produce a *structured* loss of decorrelation, specifically along the eigen-directions those interneurons were carrying, and the structure should be predictable from the rearing environment. In a gain circuit, the loss should be unstructured. Predicting the pattern of a lesion's effect from a normative model, and then testing it, is the highest form of evidence available here.
+
+</details>

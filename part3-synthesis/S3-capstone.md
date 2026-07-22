@@ -148,7 +148,9 @@ for eps in [1e-8, 1e-6, 1e-4, 1e-2]:
     print("eps=%.0e  dwell times: %s" % (eps, np.round(d[2:8], 2)))
 ```
 
-**What to look for.** Successive dwell times *grow* (the cycle is attracting) and then plateau at a level set by the noise. Plot plateau dwell time against $\log_{10}\epsilon$: it should be a **straight line with slope $-\ln(10)/\lambda^u$**, where $\lambda^u$ is the unstable eigenvalue of the saddle (compute it from the Jacobian at the single-species equilibrium and check the slope quantitatively — that is a parameter-free prediction). Six decades of $\epsilon$ should change dwell times by only a factor of a few. Then repeat with H1: a reservoir's transient timescales are set by $\tau$ and $g$ and do not depend on noise amplitude at all. The two are trivially distinguishable *if you vary noise*, which nobody has done in a locust.
+**What to look for.** Successive dwell times *grow* (the cycle is attracting) and then plateau at a level set by the noise. Plot plateau dwell time against $\log_{10}\epsilon$: a **straight line of slope $-\ln(10)/\lambda^u$**, where $\lambda^u$ is the unstable eigenvalue of the saddle. Compute $\lambda^u$ independently from the Jacobian at the single-species equilibrium $a=(1,0,0)$ — for these parameters the eigenvalues are $\{-1,\,-\beta+1,\,1-\alpha\} = \{-1,\,-0.4,\,+0.2\}$, so $\lambda^u=0.2$ and the predicted slope is $2.303/0.2 \approx 11.5$ time units per decade of noise. The simulation gives plateaux of roughly $90,\,66,\,46,\,24$ at $\epsilon = 10^{-8},10^{-6},10^{-4},10^{-2}$ — about $11$ per decade. **Parameter-free, and it works.** Six decades of noise change dwell times by less than a factor of four. (At $\epsilon=10^{-2}$ you will also see spurious near-zero dwells from flicker between near-equal amplitudes; filter them.)
+
+Then run the same measurement on H1: a reservoir's transient timescales are set by $\tau$ and $g$ and are independent of noise amplitude. The two hypotheses are trivially distinguishable *if you vary the noise* — which, remarkably, nobody has done in a locust. If you do only one experiment from this note, do this one.
 
 **(b) Synchrony gating of a Kenyon cell.**
 
@@ -168,7 +170,9 @@ def kc_dprime(n_pn=50, g=1.0, delta=5.0, jitter=np.linspace(0.1, 40, 12), n_tria
     return jitter, np.array(out)
 ```
 
-**What to look for.** $d'$ falls roughly as $(\Delta^2+\sigma_j^2)^{-1/2}$ — verify against the closed form in H4 — while the total spike count is identical in every condition. This is the quantitative content of "synchrony carries information that rate does not", and it converts a slogan into a curve you can compare against KC recordings under picrotoxin.
+**What to look for.** The mean peak depolarisation tracks the closed form $n g/\sqrt{2\pi(\Delta^2+\sigma_j^2)}$ to within a percent — check it directly, it is the whole of H4 in one line. Consequently $d'$ for the 50-PN versus 35-PN odours falls steeply with jitter (roughly $8.8 \to 1.7$ as $\sigma_j$ goes from 4 ms to 40 ms with $\Delta=5$ ms), while the total spike count is *identical* in every condition. Ignore the $\sigma_j\to0$ point: with no jitter the peak is deterministic and $d'$ diverges.
+
+This is the quantitative content of "synchrony carries information that rate does not", and it converts a slogan into a curve you can lay against KC recordings under picrotoxin. Note that it also gives you the free parameter you most want: fitting the measured $d'(\sigma_j)$ recovers $\Delta$, the KC integration window, from the *psychophysics* rather than from a patch pipette — and the two estimates had better agree.
 
 ---
 
