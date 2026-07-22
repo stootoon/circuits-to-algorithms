@@ -1,0 +1,47 @@
+<!-- MathJax 3: the course is math-dense, so inline $...$ must work. -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      tags: 'none'
+    },
+    options: {
+      // Do not typeset code blocks, or every \n in a numpy snippet becomes a macro.
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+      ignoreHtmlClass: 'highlight|highlighter-rouge|language-plaintext'
+    },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  /* Collapsible exercise solutions: make them look like an affordance, not an accident. */
+  details {
+    margin: 0.6rem 0 1.2rem 0;
+    padding: 0.5rem 0.9rem;
+    border-left: 3px solid #7253ed;
+    background: rgba(114, 83, 237, 0.04);
+    border-radius: 0 4px 4px 0;
+  }
+  details > summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #7253ed;
+    list-style: none;
+  }
+  details > summary::before { content: "▸ "; }
+  details[open] > summary::before { content: "▾ "; }
+  details[open] > summary { margin-bottom: 0.6rem; }
+
+  /* Difficulty stars read better slightly dimmed. */
+  .main-content h3 + p strong { font-weight: 600; }
+
+  /* Wide equations and tables must scroll themselves, never the page. */
+  .main-content table { display: block; overflow-x: auto; max-width: 100%; }
+  mjx-container[jax="SVG"][display="true"] { overflow-x: auto; overflow-y: hidden; }
+</style>

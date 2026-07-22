@@ -1,0 +1,61 @@
+title: Circuits to Algorithms
+description: >-
+  A self-study course in extracting algorithms from neural circuits — with a parallel
+  thread on the new mathematical objects that neural circuits have forced into existence.
+author: Sina Tootoonian
+
+theme: just-the-docs
+url: https://stootoon.github.io
+baseurl: /circuits-to-algorithms
+
+# --- Theme options -----------------------------------------------------------
+color_scheme: light
+search_enabled: true
+search:
+  heading_level: 3
+  previews: 3
+  tokenizer_separator: /[\s/]+/
+
+heading_anchors: true
+
+# Several Foundations units use ```mermaid fences for phase-portrait taxonomies.
+mermaid:
+  version: "10.9.1"
+
+aux_links:
+  "View on GitHub":
+    - "https://github.com/stootoon/circuits-to-algorithms"
+aux_links_new_tab: true
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+footer_content: >-
+  Circuits to Algorithms &middot; licensed
+  <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+  Corrections welcome via
+  <a href="https://github.com/stootoon/circuits-to-algorithms/issues">issue</a> or PR.
+
+nav_external_links:
+  - title: Source repository
+    url: https://github.com/stootoon/circuits-to-algorithms
+
+# --- Markdown / math ---------------------------------------------------------
+# math_engine is deliberately unset: kramdown passes $...$ and $$...$$ through
+# untouched and MathJax 3 (see _includes/head_custom.html) renders them client-side.
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+  math_engine: null
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .github
+  - README-dev.md
