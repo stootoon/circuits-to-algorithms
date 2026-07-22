@@ -1,6 +1,7 @@
 ---
-title: C6 · Grid cells
-nav_order: 46
+title: "C6 · Grid cells"
+parent: Case studies
+nav_order: 6
 ---
 
 # C6 — Grid cells → lattices, modular codes, and predictive maps

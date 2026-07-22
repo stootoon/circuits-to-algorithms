@@ -1,6 +1,7 @@
 ---
-title: C4 · Continuous attractors
-nav_order: 44
+title: "C4 · Continuous attractors"
+parent: Case studies
+nav_order: 4
 ---
 
 # C4 — Ring and line attractors → integration and analog memory

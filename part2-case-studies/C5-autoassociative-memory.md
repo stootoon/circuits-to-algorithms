@@ -1,6 +1,7 @@
 ---
-title: C5 · Autoassociative memory
-nav_order: 45
+title: "C5 · Autoassociative memory"
+parent: Case studies
+nav_order: 5
 ---
 
 # C5 — Recurrent autoassociation → content-addressable memory

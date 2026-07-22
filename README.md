@@ -148,6 +148,11 @@ read in one sitting and modify in an afternoon. A model you have perturbed is wo
 have read about. Three of them are expanded into [notebooks](notebooks/README.md) with plots
 and null models.
 
+**Use the reading tools.** Select any text to highlight it, attach a note, or flag it as an
+error; mark units complete as you finish them. Everything is collected on the
+[My notes](notes.md) page and stored in your browser. Flagged errors turn into prefilled GitHub
+issues — please use that, since most of these derivations have been checked by nobody but me.
+
 **Keep a conversion log.** For every case study, write one page: (1) the level-1 problem
 statement, (2) the algorithm as a mathematical object, (3) the mapping to circuit elements,
 (4) the falsifiable prediction, (5) what you would measure to kill it. By C10 you will have ten
