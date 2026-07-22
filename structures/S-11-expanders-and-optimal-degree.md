@@ -5,6 +5,7 @@ nav_order: 11
 ---
 
 # S-11 — Sparse random expansion, and a theory that predicted an anatomical number
+{: .no_toc }
 
 > **The object.** Sparse random bipartite connectivity analysed as an expander / sparse
 > random-projection matrix — and the derivation of the **optimal in-degree** for such a
@@ -16,6 +17,14 @@ nav_order: 11
 > **Novelty.** Expanders and sparse Johnson–Lindenstrauss are classical. The *result* — a
 > derived optimum that matches biology to within one synapse — is new, and it is one of the
 > best things theoretical neuroscience has produced.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

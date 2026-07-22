@@ -5,6 +5,7 @@ nav_order: 5
 ---
 
 # S-05 — Topology as an instrument: certifying an attractor manifold
+{: .no_toc }
 
 > **The object.** Persistent homology deployed as *inference about state-space topology* — using
 > Betti numbers computed from unlabelled population activity to certify that the manifold a
@@ -15,6 +16,14 @@ nav_order: 5
 > **Situation.** #6, the empirical topology problem.
 > **Novelty.** The topology is classical; the *use* — as a decisive test between mechanistic
 > hypotheses — is new, and it is the reason this note exists.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 
@@ -216,7 +225,7 @@ Note that two of the four predict "contractible," which is honest and important:
 homology alone cannot separate the open-chain heteroclinic hypothesis from the reservoir
 hypothesis.** That is a real limitation and identifying it is half the value of the exercise. To
 separate those two you need a different instrument — the fixed/slow-point analysis of
-[M1](../part1-foundations/01-dynamical-systems.md), which asks whether the trajectory passes near
+[Unit 01](../part1-foundations/01-dynamical-systems.md), which asks whether the trajectory passes near
 genuine saddles (heteroclinic) or through a region with no slow points (reservoir). That is
 arguably the single most decisive analysis available for C2, and it is a natural capstone
 deliverable.

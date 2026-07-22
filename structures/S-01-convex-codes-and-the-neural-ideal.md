@@ -5,6 +5,7 @@ nav_order: 1
 ---
 
 # S-01 — Convex codes and the neural ideal
+{: .no_toc }
 
 > **The object.** The *neural ideal* $J_\mathcal{C}$ — an ideal in $\mathbb{F}_2[x_1,\dots,x_n]$
 > whose canonical form is exactly the list of receptive-field containment relations forced by a
@@ -16,6 +17,14 @@ nav_order: 1
 > **Novelty.** **Genuinely new.** Nobody in convex geometry had asked which binary codes are
 > realizable by arrangements of convex sets. The question has produced new theorems, new
 > counterexamples, and open problems that remain open.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

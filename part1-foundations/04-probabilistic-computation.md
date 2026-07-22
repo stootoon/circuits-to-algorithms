@@ -5,8 +5,17 @@ nav_order: 4
 ---
 
 # Unit 04 — Probabilistic computation: circuits that represent and update beliefs
+{: .no_toc }
 
 > **The conversion in one line:** *population activity → a probability distribution, and circuit dynamics → an inference algorithm* — with the corollary that neural **variability**, the thing we usually average away, may be the representation rather than the corruption of it.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

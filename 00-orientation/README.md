@@ -5,12 +5,21 @@ permalink: /orientation/
 ---
 
 # 00 — Marr's levels, multiple realizability, and the identifiability problem
+{: .no_toc }
 
 > **Primitive.** The abstraction ladder: what kind of object an "algorithm" is, why it is not
 > determined by the circuit, and what therefore counts as evidence for one.
 > **Prerequisites.** None.
 > **Structures thread.** [`structures/README.md`](../structures/README.md) — the methodology
 > note there is the Thread-B counterpart to this unit.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 
@@ -109,7 +118,7 @@ even the concept of an instruction, a register, or a clock.
 Read this early and take the correct lesson, which is *not* "neuroscience is hopeless." It is:
 **the standard toolkit is a level-3 toolkit, and level-3 tools do not spontaneously yield
 level-2 descriptions.** You need an independent source of level-2 hypotheses. In this course
-that source is almost always either (a) a normative derivation — M3, M4, M6 — or (b) a trained
+that source is almost always either (a) a normative derivation — Units 03, 04, 06 — or (b) a trained
 model you can reverse-engineer — S1. There is no third option that has ever worked.
 
 ### 2.4 The two master strategies
@@ -117,12 +126,12 @@ model you can reverse-engineer — S1. There is no third option that has ever wo
 Everything in Phase 1 is one of these:
 
 **Bottom-up / mechanistic.** Reduce the circuit's dynamics until a recognizable primitive falls
-out. Find the fixed points and classify them (M1). Find the low-dimensional latent and the
-connectivity structure generating it (M2). The output is a *dynamical* characterization: this
+out. Find the fixed points and classify them (Unit 01). Find the low-dimensional latent and the
+connectivity structure generating it (Unit 02). The output is a *dynamical* characterization: this
 circuit is an integrator, a switch, a filter, a sequence generator.
 
 **Top-down / normative.** Posit that the circuit solves some problem optimally, derive the
-optimal solution analytically, and check the derived solution against the circuit (M3, M4, M6).
+optimal solution analytically, and check the derived solution against the circuit (Units 03, 04, 06).
 The output is a *functional* characterization: this circuit whitens, this circuit computes a
 posterior, this circuit cancels a prediction.
 

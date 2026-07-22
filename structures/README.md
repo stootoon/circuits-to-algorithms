@@ -6,6 +6,7 @@ permalink: /structures/
 ---
 
 # Thread B — Mathematical structures born from circuits
+{: .no_toc }
 
 > Neuroscience is usually cast as a consumer of mathematics. It is also, occasionally, a
 > producer. This thread is a catalogue of the objects it has produced, and a method for
@@ -21,6 +22,14 @@ The second is rarer, more interesting, and more learnable than it looks. It happ
 circuit presents a question that the mathematics on the shelf cannot answer *in the form the
 question is asked*. The catalogue below is organized so that you can see the shape of that
 situation repeating.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

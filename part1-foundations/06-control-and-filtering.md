@@ -5,8 +5,17 @@ nav_order: 6
 ---
 
 # Unit 06 — Control, filtering, and internal models
+{: .no_toc }
 
 > **The conversion in one line:** *a recurrent circuit driven by a subtractive error signal → a recursive Bayesian estimator wrapped in a feedback controller* — and, in the cerebellum-like case, *a granule-cell expansion plus a climbing-fibre error → the LMS adaptive filter, verbatim.*
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

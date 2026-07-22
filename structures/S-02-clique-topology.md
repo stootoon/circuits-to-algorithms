@@ -5,6 +5,7 @@ nav_order: 2
 ---
 
 # S-02 — Clique topology: an invariant of matrix *order*
+{: .no_toc }
 
 > **The object.** The Betti curves of the order complex of a symmetric matrix — a topological
 > invariant that depends only on the *rank ordering* of the matrix entries, hence is invariant
@@ -16,6 +17,14 @@ nav_order: 2
 > **Novelty.** **Genuinely new.** Persistent homology is classical; using it as an invariant of
 > the *order type* of a matrix, to detect geometric organization through an unknown monotone
 > nuisance, is not.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

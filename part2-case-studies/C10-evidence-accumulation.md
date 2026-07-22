@@ -5,11 +5,20 @@ nav_order: 10
 ---
 
 # C10 — Evidence accumulation → the sequential probability ratio test
+{: .no_toc }
 
 > **Circuit.** MT → LIP (and FEF, SC, caudate) in the macaque random-dot motion task; the homologous PPC/FOF circuit in rodents.
 > **Primitive extracted.** Accumulate the log-likelihood ratio of the competing hypotheses and stop at a threshold: Wald's sequential probability ratio test, whose continuous limit is the drift-diffusion model. Implemented, approximately, by a two-population mutual-inhibition network operating near a saddle point.
 > **Status.** The *algorithm* is on very firm ground — behaviourally, DDM fits are among the best quantitative models in psychology. The *circuit assignment* is much shakier than the textbooks suggest: causal tests of LIP have repeatedly come back negative.
 > **Structures thread.** Optimal stopping and dynamic programming; first-passage problems for diffusions; saddle-point normal forms and slow manifolds. The two-population mutual-inhibition motif of §2.4 is the smallest case treated in `../structures/S-03-combinatorial-threshold-linear-networks.md`; index in `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

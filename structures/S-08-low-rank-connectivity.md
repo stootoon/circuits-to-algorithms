@@ -5,6 +5,7 @@ nav_order: 8
 ---
 
 # S-08 — Connectivity space: when the population's *statistics* are the algorithm
+{: .no_toc }
 
 > **The object.** The joint distribution over neurons of their connectivity loadings — each
 > neuron a point in a low-dimensional "connectivity space," the population a cloud, and the
@@ -19,11 +20,19 @@ nav_order: 8
 
 ---
 
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
+
 ## 1. Where it comes from
 
 You train an RNN on a task. It works. You now have an $N \times N$ weight matrix and no idea
 what it is doing. Fixed-point analysis
-([M1](../part1-foundations/01-dynamical-systems.md), [S1](../part3-synthesis/S1-rnn-as-model-organism.md))
+([Unit 01](../part1-foundations/01-dynamical-systems.md), [S1](../part3-synthesis/S1-rnn-as-model-organism.md))
 tells you the *dynamical* structure, but not how the connectivity produces it.
 
 The insight is that trained networks are typically **low-rank plus random**, and that low-rank

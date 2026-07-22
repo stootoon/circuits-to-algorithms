@@ -4,11 +4,20 @@ nav_order: 46
 ---
 
 # C6 — Grid cells → lattices, modular codes, and predictive maps
+{: .no_toc }
 
 > **Circuit.** Medial entorhinal cortex layer II/III, organized into a small number of discrete *modules*, each containing cells whose firing tiles space on a common triangular lattice with a common scale and orientation but all possible phases.
 > **Primitive extracted.** Two candidates, both defensible. (A) A 2-D continuous attractor on a torus, path-integrating velocity into a lattice phase, with the module ensemble forming a redundant residue-like code of exponential range and intrinsic error correction. (B) The eigenbasis of a *successor operator* — a reinforcement-learning predictive map whose spectral decomposition happens to look like lattices.
 > **Status.** The mechanism (A) is close to settled after the recovery of toroidal topology in population activity. The *function* is not: (B) explains a growing pile of reward- and geometry-dependent effects that (A) cannot. This unit is the course's central worked example of one circuit carrying two incompatible level-2 readings, and of how you would tell them apart.
 > **Structures thread.** [`../structures/S-05-toroidal-topology-of-grid-cells.md`](../structures/S-05-toroidal-topology-of-grid-cells.md) — read it immediately after §2.2; the persistent-homology machinery there is what turned (A) from a model into a measurement. Also [`../structures/S-02-clique-topology.md`](../structures/S-02-clique-topology.md) (the order-invariant precursor) and [`../structures/README.md`](../structures/README.md), situation 6.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

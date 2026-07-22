@@ -5,11 +5,20 @@ nav_order: 1
 ---
 
 # C1 — Expansion + sparsening → random projection, LSH, and kernels
+{: .no_toc }
 
 > **Circuit.** Insect antennal lobe projection neurons fan out onto a vastly larger population of Kenyon cells (~50 PN channels → ~2,000 KCs in *Drosophila*; ~830 PNs → ~50,000 KCs in locust), each KC sampling a handful of PNs, with a single giant inhibitory interneuron (GGN in locust, APL in *Drosophila*) closing a global negative-feedback loop.
 > **Primitive extracted.** A sparse binary random projection into a high-dimensional space followed by a winner-take-all threshold — i.e. a locality-sensitive hash whose output is simultaneously a random-feature map that linearises downstream classification.
 > **Status.** Well established as a *sufficient* reading; the LSH framing is a genuine contribution of theory to biology and is largely uncontested. What remains contested is whether the projection is truly random (structured sampling has been reported) and where on the sparseness–noise tradeoff real circuits actually sit.
 > **Structures thread.** `structures/S-04-manifold-capacity.md` (Cover counting and its manifold generalisation — the capacity story below is the scalar special case), `structures/S-06-hyperbolic-odor-space.md` (the hash is only useful if the metric it preserves is the metric that matters — if odour space is hyperbolic, Euclidean-cosine LSH is preserving the wrong thing), `structures/S-03-combinatorial-threshold-linear-networks.md` (the GGN/APL loop is a threshold-linear network with uniform global inhibition; its fixed-point combinatorics *is* the winner-take-all). Start from `structures/README.md`.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## 1. The phenomenon
 

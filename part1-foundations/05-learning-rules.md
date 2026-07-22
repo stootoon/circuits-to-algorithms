@@ -5,8 +5,17 @@ nav_order: 5
 ---
 
 # Unit 05 — When the algorithm *is* the learning rule
+{: .no_toc }
 
 > **The conversion in one line:** *a local synaptic update rule → the objective function it descends, and the optimization algorithm it implements* — so that the circuit's computation is not what it does on a trial, but what it does *across* trials.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

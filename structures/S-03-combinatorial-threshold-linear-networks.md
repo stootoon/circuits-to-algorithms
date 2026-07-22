@@ -5,6 +5,7 @@ nav_order: 3
 ---
 
 # S-03 — Combinatorial threshold-linear networks: a dictionary from graphs to attractors
+{: .no_toc }
 
 > **The object.** A correspondence $G \mapsto \mathrm{FP}(G)$ sending a directed graph to the
 > set of fixed-point supports of an associated threshold-linear dynamical system, together with
@@ -16,6 +17,14 @@ nav_order: 3
 > **Situation.** #4, the structure→dynamics dictionary.
 > **Novelty.** **Genuinely new.** A correspondence between directed graph combinatorics and
 > attractor structure, with theorems, that did not previously exist.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

@@ -4,11 +4,20 @@ nav_order: 44
 ---
 
 # C4 — Ring and line attractors → integration and analog memory
+{: .no_toc }
 
 > **Circuit.** The *Drosophila* central complex (E-PG "compass" neurons in the ellipsoid body, P-EN neurons closing an offset loop through the protocerebral bridge), plus the vertebrate oculomotor velocity-to-position integrator and the mammalian head-direction system.
 > **Primitive extracted.** A continuous symmetry in the connectivity produces a *manifold* of marginally stable fixed points; asymmetric drive slides the state along that manifold at a rate proportional to the asymmetry. The algorithm is **integration**, and the memory is the position on the manifold.
 > **Status.** The most settled circuit→algorithm conversion in modern systems neuroscience. In the fly it is essentially closed: the predicted connectivity motif was found in the connectome, the predicted null direction was found by perturbation, and the predicted topology was found in the population activity. What is *not* settled is how the required fine-tuning is achieved biologically.
 > **Structures thread.** [`../structures/S-05-toroidal-topology-of-grid-cells.md`](../structures/S-05-toroidal-topology-of-grid-cells.md) (the ring here is the $d=1$ case of the same empirical-topology programme); [`../structures/S-08-low-rank-connectivity.md`](../structures/S-08-low-rank-connectivity.md) (a cosine ring kernel is exactly a rank-2 perturbation of the identity); [`../structures/README.md`](../structures/README.md), situation 6.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 
@@ -346,4 +355,4 @@ so $\dot\psi = +\varepsilon/(\tau u_1)$: linear in $\varepsilon$, and inversely 
 
 **4. Is marginality the right idealization?** If the true state space is a fine ladder rather than a continuum, the level-2 description must include the quantization. **What would settle it:** the *stationary distribution* of remembered values after long delays. A continuum gives a spreading Gaussian; a ladder gives multimodality at a characteristic spacing. The fly, with 16 wedges, is the place to try.
 
-**5. What is the actual objective?** This unit assumes the level-1 problem is "estimate heading." But an animal integrating noisy angular velocity should be doing *Bayesian* integration, discounting old evidence and weighting landmarks by reliability — see [M4](../part1-foundations/04-probabilistic-computation.md) and [M6](../part1-foundations/06-control-and-filtering.md). A pure attractor is a flat-prior, no-forgetting integrator, which is the wrong estimator. **What would settle it:** manipulate landmark reliability and ask whether snap-to-landmark strength scales as the Kalman gain predicts. If it does, the algorithm is "run a circular Kalman filter," and the attractor is only its prediction step.
+**5. What is the actual objective?** This unit assumes the level-1 problem is "estimate heading." But an animal integrating noisy angular velocity should be doing *Bayesian* integration, discounting old evidence and weighting landmarks by reliability — see [Unit 04](../part1-foundations/04-probabilistic-computation.md) and [Unit 06](../part1-foundations/06-control-and-filtering.md). A pure attractor is a flat-prior, no-forgetting integrator, which is the wrong estimator. **What would settle it:** manipulate landmark reliability and ask whether snap-to-landmark strength scales as the Kalman gain predicts. If it does, the algorithm is "run a circular Kalman filter," and the attractor is only its prediction step.

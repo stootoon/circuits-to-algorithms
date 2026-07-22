@@ -5,11 +5,20 @@ nav_order: 9
 ---
 
 # C9 — Cerebellum-like circuits → adaptive filters and negative images
+{: .no_toc }
 
 > **Circuit.** The mormyrid electrosensory lateral line lobe (ELL) — a cerebellum-like structure in which molecular-layer parallel fibres, carrying corollary discharge and proprioceptive signals, synapse on the apical dendrites of principal (medium ganglion) cells that also receive raw electroreceptor input.
 > **Primitive extracted.** Least-mean-squares adaptive filtering: the circuit learns a *negative image* of its own predictable input and subtracts it, leaving an innovation. The anti-Hebbian plasticity rule **is** stochastic gradient descent on the squared postsynaptic response.
 > **Status.** As settled as anything in systems neuroscience. The learning rule was measured directly, the algorithm predicts the rule's *sign* and *timing asymmetry*, and the predictions held.
 > **Structures thread.** Projection and least squares; orthogonality principles and innovations; stochastic approximation. The basis-span argument of §2.2 is the same question asked in `../structures/S-11-expanders-and-optimal-degree.md` (what a random expansion can represent). Same threads as `./C7-dopamine-and-td-learning.md`, arrived at from the opposite direction; index in `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

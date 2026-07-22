@@ -5,6 +5,7 @@ nav_order: 6
 ---
 
 # S-06 — Hyperbolic representational geometry
+{: .no_toc }
 
 > **The object.** Negatively-curved representational spaces — $\mathbb{H}^d$ and Gromov
 > $\delta$-hyperbolicity — as the natural home for representations of hierarchically-generated
@@ -15,6 +16,14 @@ nav_order: 6
 > **Situation.** #5, the wrong-geometry problem.
 > **Novelty.** The geometry is nineteenth-century. The *diagnosis* — that a sensory space is
 > negatively curved and *why* — is new, and it has real consequences for coding.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

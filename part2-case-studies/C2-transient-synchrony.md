@@ -5,11 +5,20 @@ nav_order: 2
 ---
 
 # C2 — Transient synchrony and trajectories → reservoir computation and dynamic decorrelation
+{: .no_toc }
 
 > **Circuit.** The locust antennal lobe: ~830 cholinergic projection neurons and ~300 non-spiking GABAergic local neurons in a densely reciprocal loop, driven by receptor neurons, producing a 20–30 Hz field oscillation, cycle-by-cycle transient synchrony of shifting PN subsets, and odour-specific spatiotemporal trajectories lasting a second or more.
 > **Primitive extracted.** Contested. Four candidates: a fixed nonlinear dynamical expansion read out linearly (reservoir); a progressive whitening transform implemented by the transient itself; a stable heteroclinic sequence in which the trajectory *is* the code; and a synchrony-based gating signal that makes downstream coincidence detection selective. They are not the same claim and they are not equally supported.
 > **Status.** Competing readings, unresolved — and this is the most instructive unresolved case in sensory neuroscience, because all four readings are consistent with the standard measurements and are discriminated only by analyses nobody has yet run on the right data.
 > **Structures thread.** `structures/S-03-combinatorial-threshold-linear-networks.md` is the direct formal partner: CTLNs are the cleanest existing framework in which specific inhibitory connectivity graphs *provably* generate sequential attractors, which is hypothesis (c) with the mathematics done properly. `structures/S-04-manifold-capacity.md` gives the tools to ask whether the transient increases separability in the sense that matters. `structures/S-06-hyperbolic-odor-space.md` is what the decorrelation hypothesis is implicitly assuming about the target geometry. See `structures/README.md`.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## 1. The phenomenon
 

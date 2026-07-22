@@ -4,11 +4,20 @@ nav_order: 45
 ---
 
 # C5 — Recurrent autoassociation → content-addressable memory
+{: .no_toc }
 
 > **Circuit.** Hippocampal CA3: ~$10^4$ recurrent collateral synapses per pyramidal cell onto a population of the same cells, fed by a sparse, expanded, detonator-synapse input from dentate gyrus and a diffuse one from entorhinal cortex.
 > **Primitive extracted.** Store patterns as attractors of a symmetric recurrent network built by Hebbian outer products; retrieve by relaxation from a partial cue. The memory is addressed by *content*, not location, and capacity is a computable function of connectivity, sparseness, and the form of the energy.
 > **Status.** The best-developed *theory* in computational neuroscience and one of the weakest *conversions*. The mathematics is exact and beautiful; the mapping to CA3 is suggestive, partially tested, and has never survived a decisive experiment. Meanwhile the object escaped and conquered machine learning.
 > **Structures thread.** [`../structures/S-04-manifold-capacity.md`](../structures/S-04-manifold-capacity.md) (Gardner-style capacity calculations, of which this unit's $\alpha_c$ is the ancestor); [`../structures/S-03-combinatorial-threshold-linear-networks.md`](../structures/S-03-combinatorial-threshold-linear-networks.md) (reading attractors off connectivity without a Lyapunov function); [`../structures/README.md`](../structures/README.md), situations 3 and 4.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

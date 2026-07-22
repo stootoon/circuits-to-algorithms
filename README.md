@@ -179,7 +179,7 @@ Three things worth owning rather than borrowing:
 
 - **Dayan & Abbott (2001)**, *Theoretical Neuroscience* — the standard reference; still the best
   single source for mechanics and notation.
-- **Strogatz**, *Nonlinear Dynamics and Chaos* — for M1, if the dynamical systems material is
+- **Strogatz**, *Nonlinear Dynamics and Chaos* — for Unit 01, if the dynamical systems material is
   not already reflexive.
 - **Marr (1982)**, *Vision* — read chapter 1 in week 1 and again in week 26. It reads
   differently the second time.

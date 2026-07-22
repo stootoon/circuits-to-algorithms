@@ -5,8 +5,17 @@ nav_order: 2
 ---
 
 # Unit 02 — The Linear Algebra of Populations
+{: .no_toc }
 
 > **The conversion in one line:** $N$ spike trains → a low-dimensional latent geometry whose *shape* is the algorithm's data structure.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

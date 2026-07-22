@@ -5,11 +5,20 @@ nav_order: 1
 ---
 
 # S1 — Train an RNN, reverse-engineer it, compare to biology
+{: .no_toc }
 
 > **The method.** Train a recurrent network on the task your animal solves. Reverse-engineer the trained network completely — you have every weight and every state, so there is no excuse for not understanding it. Then ask, carefully, whether the animal did the same thing.
 > **What it is good for.** Generating *specific, mechanistic* hypotheses at level 2 in cases where you cannot guess the algorithm from first principles. It is a hypothesis generator with unusually high resolution.
 > **What it is not.** Evidence. A trained RNN is an existence proof that *some* system solves the task a particular way. Turning that into a claim about brains requires work that most papers do not do.
 > **Structures thread.** Non-normal linear algebra (left vs. right eigenvectors), slow manifolds and normal forms, invariance classes of similarity measures. Read alongside `../structures/S-07-random-matrices-and-chaos.md` (what the untrained network's spectrum looks like) and `../structures/S-08-low-rank-connectivity.md` (what training adds to it); index in `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

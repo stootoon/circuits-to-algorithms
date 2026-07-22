@@ -5,11 +5,20 @@ nav_order: 3
 ---
 
 # S3 — Capstone: a level-2 specification for transient-synchrony olfactory coding
+{: .no_toc }
 
 > **The task.** Produce a complete, defensible level-2 specification of what the locust antennal lobe and mushroom body are computing during the odour-evoked transient — one that would score ≥20/24 on the checklist in `./S2-degeneracy-and-limits.md` §4.
 > **Why this system.** Because the data are extraordinary and the algorithm is genuinely unsettled. Thirty years of recordings have produced a phenomenology of surpassing richness — oscillatory synchronisation, transient trajectories, sparse readout, phase-gated one-shot plasticity — and at least four incompatible algorithmic readings, none of which has been made to bind hard enough to fail.
 > **How to use this note.** As a staged project with deliverables, not as reading. Each milestone ends in an artefact you can show someone. Expect M0–M3 to take a few weeks and M4–M7 to take a few months.
 > **Structures thread.** `../structures/S-11-expanders-and-optimal-degree.md` fixes the PN→KC matrix $A$ in M0; `../structures/S-03-combinatorial-threshold-linear-networks.md` gives a second, discrete route to the sequence dynamics of H3; `../structures/S-06-hyperbolic-odor-space.md` bears on the input geometry you assume in M1. Index in `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

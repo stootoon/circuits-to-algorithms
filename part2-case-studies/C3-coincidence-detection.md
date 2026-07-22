@@ -5,11 +5,20 @@ nav_order: 3
 ---
 
 # C3 — Coincidence detection + delay lines → cross-correlation
+{: .no_toc }
 
 > **Circuit.** The barn owl's nucleus laminaris: bilateral axonal delay lines from nucleus magnocellularis interdigitate along an array of bipolar coincidence-detecting neurons, so that each NL neuron fires maximally for one interaural time difference, and ITD is read out as a place code.
 > **Primitive extracted.** A running cross-correlation of the two ears' spike trains, sampled in parallel at a bank of internal delays — the Jeffress model, and one of the very few cases in neuroscience where an algorithm was proposed from first principles and the anatomy later found to match.
 > **Status.** Well established in birds; **partly wrong as a general theory**, because the mammalian medial superior olive appears not to use a place code at all. This unit is as much about the epistemology of that failure as about the algorithm.
 > **Structures thread.** `structures/S-04-manifold-capacity.md` — the Fisher-information argument in §2.5 is the low-dimensional ancestor of the population-geometry tools developed there; the Harper–McAlpine result is a worked example of a coding scheme being optimal only on part of a parameter manifold. See `structures/README.md`.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## 1. The phenomenon
 

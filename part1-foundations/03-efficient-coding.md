@@ -5,8 +5,17 @@ nav_order: 3
 ---
 
 # Unit 03 — Efficient coding: deriving circuits from principles (and running the derivation backwards)
+{: .no_toc }
 
 > **The conversion in one line:** *(stimulus ensemble statistics + a scarce resource + a noise model) → a receptive field* — and, run backwards, *a measured receptive field → the objective it is optimal for, if any.*
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

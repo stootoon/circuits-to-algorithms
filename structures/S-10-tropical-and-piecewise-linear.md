@@ -5,6 +5,7 @@ nav_order: 10
 ---
 
 # S-10 — Hyperplane arrangements and tropical geometry: the combinatorics hiding inside ReLU
+{: .no_toc }
 
 > **The object.** The chamber structure of the hyperplane arrangement induced by threshold
 > nonlinearities — and its algebraic counterpart, the identification of ReLU networks with
@@ -16,6 +17,14 @@ nav_order: 10
 > [S-03](S-03-combinatorial-threshold-linear-networks.md).
 > **Novelty.** Tropical geometry is classical; the synthesis with neural dynamics and the
 > resulting counting results are new, and they explain *why* expansion works.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

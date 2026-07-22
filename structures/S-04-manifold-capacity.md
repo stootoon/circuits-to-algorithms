@@ -5,6 +5,7 @@ nav_order: 4
 ---
 
 # S-04 — Manifold capacity: statistical mechanics when the objects are not points
+{: .no_toc }
 
 > **The object.** The capacity $\alpha_M$ for linearly separating $P$ *manifolds* in $N$
 > dimensions, together with two emergent order parameters — the **effective radius** $R_M$ and
@@ -15,6 +16,14 @@ nav_order: 4
 > **Situation.** #3, the capacity problem.
 > **Novelty.** **Genuinely new.** A real extension of Gardner's calculation, with new order
 > parameters that had no analogue in the point case.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

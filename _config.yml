@@ -50,8 +50,24 @@ kramdown:
   syntax_highlighter: rouge
   math_engine: null
 
+# Gem themes do not assign a layout by themselves. Without this block every page
+# renders as a bare HTML fragment: no theme, no sidebar, and no MathJax (which is
+# injected through the theme's head_custom include).
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
 plugins:
   - jekyll-seo-tag
+  # Rewrites relative [x](foo.md) links to their rendered URLs, so the same links
+  # work when browsing the repo on GitHub and when reading the built site.
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
 
 exclude:
   - Gemfile

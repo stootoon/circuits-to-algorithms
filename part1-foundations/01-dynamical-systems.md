@@ -5,8 +5,17 @@ nav_order: 1
 ---
 
 # Unit 01 — Dynamical Systems as the Lingua Franca
+{: .no_toc }
 
 > **The conversion in one line:** a circuit's differential equations → a phase portrait whose invariant sets *are* the computational primitives.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## Orientation
 

@@ -5,6 +5,7 @@ nav_order: 9
 ---
 
 # S-09 — Assembly calculus: inventing the missing formalism
+{: .no_toc }
 
 > **The object.** A formal computational model whose data type is the *assembly* — a set of $k$
 > co-firing neurons — with primitive operations **project**, **associate**, **merge**, and
@@ -16,6 +17,14 @@ nav_order: 9
 > **Situation.** #7, the missing formalism.
 > **Novelty.** **Genuinely new.** A computational model with its own semantics and its own
 > completeness theorem, constructed to fit a biological substrate.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

@@ -5,11 +5,20 @@ nav_order: 8
 ---
 
 # C8 — Divisive normalization → a canonical computation with several algorithmic readings
+{: .no_toc }
 
 > **Circuit.** A driven neuron whose response is divided by a pooled measure of the activity of its neighbours: V1 simple cells suppressed by a broadly tuned normalisation pool (Heeger), *Drosophila* antennal lobe PNs suppressed by lateral presynaptic inhibition proportional to total ORN activity (Olsen, Bhandawat & Wilson), locust Kenyon cells suppressed by the GGN in proportion to total KC activity (Papadopoulou et al.).
 > **Primitive extracted.** $r_i = g\,x_i^n/(\sigma^n + \sum_j w_{ij}x_j^n)$ — and, depending on which parameter you look at, this single expression *is* automatic gain control, contrast-invariant tuning, redundancy reduction, softmax, winner-take-all, attention, and approximate marginalisation.
 > **Status.** The equation is extremely well established empirically across systems and species. Every *algorithmic reading* of it is contested, and this unit argues that the contest is largely a category error — which makes it the best available case study in level-2 non-uniqueness.
 > **Structures thread.** `structures/S-03-combinatorial-threshold-linear-networks.md` — a threshold-linear network with uniform global inhibition is the subtractive cousin of this motif, and its fixed-point combinatorics tell you exactly when normalisation collapses to winner-take-all. `structures/S-04-manifold-capacity.md` — normalisation reshapes object manifolds by fixing their radius while leaving their dimension alone, which is exactly the quantity that theory says controls capacity. See `structures/README.md`.
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
+---
 
 ## 1. The phenomenon
 

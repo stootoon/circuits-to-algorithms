@@ -5,11 +5,20 @@ nav_order: 7
 ---
 
 # C7 — Dopamine → temporal-difference learning
+{: .no_toc }
 
 > **Circuit.** Midbrain dopamine neurons (VTA/SNc) and their projections to striatum and frontal cortex, embedded in the basal-ganglia loop.
 > **Primitive extracted.** A scalar *temporal-difference error* $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)$, broadcast as a global teaching signal to a value learner (critic) and a policy learner (actor).
 > **Status.** The best-validated circuit→algorithm conversion in neuroscience — and now visibly incomplete. The core TD reading survives thirty years of adversarial testing; the claim that dopamine *is* a scalar TD error does not.
 > **Structures thread.** Stochastic approximation and fixed points of contraction maps; the projection/least-squares thread (TD as a *semi*-gradient); the three-factor plasticity thread. See `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

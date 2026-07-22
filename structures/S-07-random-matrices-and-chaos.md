@@ -5,6 +5,7 @@ nav_order: 7
 ---
 
 # S-07 — Random matrices, chaos, and the theory you need to build a null
+{: .no_toc }
 
 > **The object.** Dynamic mean-field theory for randomly connected networks, the transition to
 > chaos at $g=1$, and the spectral theory of *structured* non-Hermitian random matrices —
@@ -15,6 +16,14 @@ nav_order: 7
 > **Situation.** #8, the generic-null problem.
 > **Novelty.** New results in an old field, driven by neural questions — structured spectra,
 > non-normal transient theory, and the DMFT machinery in the form the field now uses.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 

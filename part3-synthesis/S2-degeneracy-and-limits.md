@@ -5,10 +5,19 @@ nav_order: 2
 ---
 
 # S2 — When there is no clean algorithm
+{: .no_toc }
 
 > **The worry.** Nervous systems are massively degenerate: many parameter sets produce identical behaviour. Standard analyses applied to a system whose algorithm we know exactly (a microprocessor) fail to recover it. And normative stories are cheap — for almost any behaviour, *some* objective makes it optimal.
 > **The claim of this note.** Degeneracy at the parameter level is not an obstacle to level-2 claims; it is an argument *for* them. But the enterprise only works if "level-2 claim" is given teeth. Here are the teeth.
 > **Structures thread.** Identifiability and Fisher information; convexity and level sets; minimum description length; convex cones and inverse problems. See `../structures/README.md`.
+
+---
+
+## Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
 
 ---
 
